@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SafeWatch: Efficient Safety-Policy Following Video Guardrail Model</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400&display=swap');
+
         body {
             font-family: Arial, sans-serif;
             background-color: #1a1a1a;
@@ -24,8 +27,22 @@
             align-items: center;
         }
         .logo {
+            display: flex;
+            align-items: center;
             font-size: 24px;
             font-weight: bold;
+        }
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+        .logo span {
+            font-family: 'Orbitron', sans-serif;
+            background: linear-gradient(to right, #cc0000, #3399ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
         }
         .nav-links a {
             color: #ffffff;
@@ -38,24 +55,51 @@
             padding: 40px 20px;
             text-align: center;
         }
+        .main-title {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .main-logo {
+            height: 100px;
+            margin-right: 20px;
+        }
         h1 {
+            font-family: 'Orbitron', sans-serif;
             font-size: 64px;
-            margin-bottom: 10px;
+            font-weight: 700;
+            margin: 0;
+            background: linear-gradient(to right, #cc0000, #3399ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
         h2 {
-            font-size: 24px;
-            font-weight: normal;
-            margin-bottom: 30px;
+            font-family: 'Raleway', sans-serif;
+            font-size: 28px;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            color: #e0e0e0;
+            max-width: 800px;
+            margin: 20px auto 30px;
+            line-height: 1.4;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
         }
         .authors {
             font-size: 18px;
-            margin-bottom: 30px;
+            margin-bottom: 10px;
         }
         .affiliations {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
+            font-size: 16px;
             margin-bottom: 30px;
+            color: #888;
+        }
+        sup {
+            font-size: 12px;
+            vertical-align: super;
         }
         .affiliation {
             background-color: #ffffff;
@@ -107,6 +151,21 @@
         }
         .video-caption p {
             margin: 5px 0;
+            display: flex;
+            align-items: flex-start;
+            text-align: left;
+        }
+        .label {
+            flex: 0 0 auto; /* Don't grow, don't shrink, size based on content */
+            padding-right: 10px;
+            font-weight: bold;
+            white-space: nowrap; /* Prevent wrapping */
+        }
+        .stream-text {
+            flex: 1 1 auto; /* Grow and shrink as needed */
+            min-width: 0; /* Allow text to shrink below its content size */
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
         .video-item:hover {
             box-shadow: 0 0 10px 3px rgba(255, 0, 0, 0.5);
@@ -138,7 +197,10 @@
 <body>
     <header>
         <nav>
-            <div class="logo">🛡️ SafeWatch</div>
+            <div class="logo">
+                <img src="images/logo.png" alt="SafeWatch Logo">
+                <span>SafeWatch</span>
+            </div>
             <div class="nav-links">
                 <a href="#download">Download</a>
                 <a href="#presentation">Presentation</a>
@@ -149,18 +211,18 @@
     </header>
 
     <div class="main-content">
-        <h1>🛡️ SafeWatch</h1>
+        <div class="main-title">
+            <img src="images/logo.png" alt="SafeWatch Logo" class="main-logo">
+            <h1>SafeWatch</h1>
+        </div>
         <h2>An Efficient Safety-Policy Following Video Guardrail Model with Transparent Explanations</h2>
         
         <p class="authors">
-            [Your Name], [Collaborator 1], [Collaborator 2], ...
+            Zhaorun Chen<sup>1</sup>, Francesco Pinto<sup>1</sup>, Minzhou Pan<sup>2</sup>, Bo Li<sup>1,2</sup>
         </p>
 
         <div class="affiliations">
-            <div class="affiliation">
-                <img src="path_to_your_institution_logo.png" alt="Institution Logo" height="40">
-            </div>
-            <!-- Add more affiliations if needed -->
+            <p><sup>1</sup>University of Chicago, <sup>2</sup>VirtueAI</p>
         </div>
 
         <div class="buttons">
@@ -173,29 +235,29 @@
             <div class="video-item">
                 <video src="video/a484464f4953ac28a19077fb208bf73a&l_6837.mp4" autoplay loop muted></video>
                 <div class="video-caption">
-                    <p><strong>Video content:</strong> <span class="stream-text" data-text="Ants tunneling under moss."></span></p>
-                    <p class="hover-content"><strong>Guardrail:</strong> Sexual Content</p>
-                    <p class="hover-content"><strong>Violation Explanation:</strong> <span class="stream-text" data-text="No violation detected."></span></p>
+                    <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
+                    <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Sexual Content"></span></p>
+                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
                 </div>
             </div>
             <div class="video-item">
                 <div class="video-caption">
-                    <p><strong>Video content:</strong> <span class="stream-text" data-text="Ants tunneling under moss."></span></p>
-                    <p><strong>Violation Explanation:</strong> <span class="stream-text" data-text="No violation detected."></span></p>
+                    <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under moss."></span></p>
+                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
                 </div>
                 <video src="video/a484464f4953ac28a19077fb208bf73a&l_6839.mp4" autoplay loop muted></video>
             </div>
             <div class="video-item">
                 <div class="video-caption">
-                    <p><strong>Video content:</strong> <span class="stream-text" data-text="Ants tunneling under moss."></span></p>
-                    <p><strong>Violation Explanation:</strong> <span class="stream-text" data-text="No violation detected."></span></p>
+                    <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under moss."></span></p>
+                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
                 </div>
                 <video src="video/c6de0308cacfd993ef282c8e1c646267&l_4706.mp4" autoplay loop muted></video>
             </div>
             <div class="video-item">
                 <div class="video-caption">
-                    <p><strong>Video content:</strong> <span class="stream-text" data-text="Ants tunneling under moss."></span></p>
-                    <p><strong>Violation Explanation:</strong> <span class="stream-text" data-text="No violation detected."></span></p>
+                    <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under moss."></span></p>
+                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
                 </div>
                 <video src="video/f0150a16a324336cda5d6dd0b69ed299&l_7733.mp4" autoplay loop muted></video>
             </div>
@@ -215,6 +277,9 @@
             videoItems.forEach(item => {
                 const streamTexts = item.querySelectorAll('.stream-text');
                 
+                // Initial streaming for all videos
+                streamTexts.forEach(streamText);
+
                 item.addEventListener('mouseenter', function() {
                     streamTexts.forEach(element => {
                         element.textContent = '';
