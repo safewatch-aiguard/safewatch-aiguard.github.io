@@ -83,10 +83,17 @@
         }
         .video-container {
             position: relative;
-        }
-        .video-container img {
             width: 100%;
-            height: auto;
+            padding-top: 177.78%; /* 16:9 aspect ratio */
+            background-color: #000; /* Background color for letterboxing */
+        }
+        .video-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* This will maintain aspect ratio */
         }
         .video-caption {
             position: absolute;
