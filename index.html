@@ -6,8 +6,8 @@
     <title>SafeWatch: Efficient Safety-Policy Following Video Guardrail Model</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Space+Mono&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&display=swap');
 
         body {
             font-family: Arial, sans-serif;
@@ -51,7 +51,7 @@
             margin-left: 20px;
         }
         .main-content {
-            max-width: 1200px;
+            max-width: 1400px; /* Reduced from 1600px to 1400px */
             margin: 0 auto;
             padding: 40px 20px;
             text-align: center;
@@ -90,11 +90,16 @@
             text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
         }
         .authors {
-            font-size: 18px;
+            font-family: 'Raleway', sans-serif;
+            font-size: 20px;
+            font-weight: 400;
             margin-bottom: 10px;
+            color: #e0e0e0;
         }
         .affiliations {
+            font-family: 'Raleway', sans-serif;
             font-size: 16px;
+            font-weight: 300;
             margin-bottom: 30px;
             color: #888;
         }
@@ -123,98 +128,187 @@
         }
         .video-grid {
             width: 100%;
-            text-align: center;
         }
         .video-item {
             position: relative;
-            width: calc(33.333% - 20px);
-            margin: 10px;
+            width: calc(25% - 20px); /* Adjust for 4 items per row with 20px gutter */
+            margin-bottom: 20px;
             background-color: #000;
             border-radius: 10px;
             overflow: hidden;
             cursor: pointer;
             transition: box-shadow 0.3s ease;
-            display: inline-block;
-            vertical-align: top;
         }
         .video-item video {
             width: 100%;
             display: block;
             transition: filter 0.3s ease;
         }
+        .flag {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 6px;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+            z-index: 2;
+        }
+        .flag-sexual-evident {
+            background: linear-gradient(135deg, #ff0000, #ff6600);
+        }
+        .flag-sexual-subtle {
+            background: linear-gradient(135deg, #ff6600, #ffcc00);
+        }
+        .flag-sexual-implication {
+            background: linear-gradient(135deg, #ffcc00, #ffff00);
+        }
+        .flag-benign {
+            background: linear-gradient(135deg, #00cc00, #00ff00);
+        }
         .video-caption {
             position: absolute;
             bottom: 0;
             left: 0;
             right: 0;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.7));
+            background-color: rgba(0, 0, 0, 0.7);
             color: #ffffff;
-            padding: 20px;
-            text-align: left;
+            padding: 15px;
+            text-align: center;
             z-index: 1;
-            font-family: 'Roboto', sans-serif;
-            transform: translateY(100%);
-            transition: transform 0.3s ease-in-out;
-        }
-        .video-item:hover .video-caption {
-            transform: translateY(0);
         }
         .video-caption p {
-            margin: 10px 0;
+            margin: 5px 0;
             display: flex;
             align-items: flex-start;
             text-align: left;
+            font-family: 'Raleway', sans-serif;
         }
-        .video-caption p strong {
-            font-family: 'Space Mono', monospace;
-            font-weight: 700;
-            color: #00ffff;
-            margin-right: 10px;
-            min-width: 100px;
+        .label {
+            flex: 0 0 auto;
+            padding-right: 10px;
+            font-weight: 600;
+            white-space: nowrap;
+            color: #3399ff;
         }
         .stream-text {
-            flex: 1;
+            flex: 1 1 auto;
+            min-width: 0;
             word-wrap: break-word;
             overflow-wrap: break-word;
-            font-weight: 300;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.9em;
             line-height: 1.4;
-            letter-spacing: 0.5px;
-        }
-        .category-tag {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background: linear-gradient(135deg, #00ffff, #0066ff);
-            color: #000000;
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-family: 'Space Mono', monospace;
-            font-size: 12px;
-            font-weight: 700;
-            z-index: 2;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            color: #e0e0e0;
         }
         .stream-text::after {
             content: '|';
             animation: blink 0.7s infinite;
-            color: #00ffff;
+            color: #cc0000;
+        }
+        .video-item:hover {
+            box-shadow: 0 0 10px 3px rgba(255, 0, 0, 0.5);
+        }
+        .video-item:hover video {
+            filter: brightness(0.7);
         }
         @keyframes blink {
             0% { opacity: 1; }
             50% { opacity: 0; }
             100% { opacity: 1; }
         }
-        @media (max-width: 768px) {
+        @media (max-width: 1200px) { /* Adjusted breakpoint */
+            .video-item {
+                width: calc(33.333% - 20px);
+            }
+        }
+        @media (max-width: 900px) { /* Adjusted breakpoint */
             .video-item {
                 width: calc(50% - 20px);
             }
         }
-        @media (max-width: 480px) {
+        @media (max-width: 600px) { /* Kept this breakpoint */
             .video-item {
                 width: 100%;
             }
+        }
+
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .filter-button {
+            background-color: #333333;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .filter-button:hover {
+            background-color: #555555;
+        }
+
+        .filter-button.active {
+            background-color: #cc0000;
+        }
+
+        /* Add this new style for the active Benign button */
+        .filter-button[data-filter="benign"].active {
+            background-color: #00cc00;
+        }
+
+        .filter-button[data-filter="benign"].active:hover {
+            background-color: #00ff00;
+        }
+
+        .sub-filter-container {
+            overflow: hidden;
+            max-height: 0;
+            transition: max-height 0.5s ease-out;
+        }
+
+        .sub-filter-container.active {
+            max-height: 100px; /* Adjust based on your content */
+        }
+
+        .sub-filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin: 10px 0;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+
+        .sub-filter-container.active .sub-filter-buttons {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .sub-filter-button {
+            background-color: #555555;
+            color: #ffffff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .sub-filter-button:hover,
+        .sub-filter-button.active {
+            background-color: #cc0000;
         }
     </style>
 </head>
@@ -255,151 +349,306 @@
             <button class="button">View more samples</button>
         </div>
 
-        <div class="video-grid" id="video-grid">
-            <!-- Video items will be dynamically inserted here -->
+        <!-- Main filter buttons -->
+        <div class="filter-buttons">
+            <button class="filter-button active" data-filter="all">All</button>
+            <button class="filter-button" data-filter="benign">Benign</button>
+            <button class="filter-button" data-filter="sexual">Sexual</button>
+            <button class="filter-button" data-filter="abuse">Abuse</button>
+            <button class="filter-button" data-filter="violence">Violence</button>
+            <button class="filter-button" data-filter="misinformation">Misinformation</button>
+            <button class="filter-button" data-filter="illegal">Illegal</button>
+            <button class="filter-button" data-filter="extremism">Extremism</button>
         </div>
-    </div>
 
-    <!-- Include necessary scripts -->
+        <!-- Add this after the main filter buttons -->
+        <div class="sub-filter-container">
+            <div class="sub-filter-buttons sexual-sub-filters" style="display: none;">
+                <button class="sub-filter-button active" data-filter="sexual-all">All</button>
+                <button class="sub-filter-button" data-filter="sexual-evident">Evident</button>
+                <button class="sub-filter-button" data-filter="sexual-subtle">Subtle</button>
+                <button class="sub-filter-button" data-filter="sexual-implication">Implication</button>
+                <button class="sub-filter-button" data-filter="sexual-hentai">Hentai</button>
+            </div>
+        </div>
+
+        <div class="video-grid">
+            <!-- Sexual: Evident videos -->
+            <div class="video-item sexual sexual-evident">
+                <div class="flag flag-sexual-evident">Sexual: Evident</div>
+                <video src="video/sexual/evident/1.mp4" autoplay loop muted></video>
+                <div class="video-caption">
+                    <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
+                    <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Sexual Content"></span></p>
+                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
+                </div>
+            </div>
+            <div class="video-item sexual sexual-evident">
+                <div class="flag flag-sexual-evident">Sexual: Evident</div>
+                <video src="video/sexual/evident/2.mp4" autoplay loop muted></video>
+                <div class="video-caption">
+                    <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
+                    <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Sexual Content"></span></p>
+                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
+                </div>
+            </div>
+            <!-- Add more evident videos as needed -->
+
+            <!-- Sexual: Subtle videos -->
+            <div class="video-item sexual sexual-subtle">
+                <div class="flag flag-sexual-subtle">Sexual: Subtle</div>
+                <video src="video/sexual/subtle/1.mp4" autoplay loop muted></video>
+                <div class="video-caption">
+                    <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
+                    <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Sexual Content"></span></p>
+                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
+                </div>
+            </div>
+            <div class="video-item sexual sexual-subtle">
+                <div class="flag flag-sexual-subtle">Sexual: Subtle</div>
+                <video src="video/sexual/subtle/2.mp4" autoplay loop muted></video>
+                <div class="video-caption">
+                    <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
+                    <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Sexual Content"></span></p>
+                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
+                </div>
+            </div>
+            <!-- Add more subtle videos as needed -->
+
+            <!-- Sexual: Implication videos -->
+            <div class="video-item sexual sexual-implication">
+                <div class="flag flag-sexual-implication">Sexual: Implication</div>
+                <video src="video/sexual/implication/1.mp4" autoplay loop muted></video>
+                <div class="video-caption">
+                    <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
+                    <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Sexual Content"></span></p>
+                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
+                </div>
+            </div>
+            <div class="video-item sexual sexual-implication">
+                <div class="flag flag-sexual-implication">Sexual: Implication</div>
+                <video src="video/sexual/implication/2.mp4" autoplay loop muted></video>
+                <div class="video-caption">
+                    <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
+                    <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Sexual Content"></span></p>
+                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
+                </div>
+            </div>
+            <div class="video-item sexual sexual-implication">
+                <div class="flag flag-sexual-implication">Sexual: Implication</div>
+                <video src="video/sexual/implication/3.mp4" autoplay loop muted></video>
+                <div class="video-caption">
+                    <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
+                    <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Sexual Content"></span></p>
+                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
+                </div>
+            </div>
+            <div class="video-item sexual sexual-implication">
+                <div class="flag flag-sexual-implication">Sexual: Implication</div>
+                <video src="video/sexual/implication/4.mp4" autoplay loop muted></video>
+                <div class="video-caption">
+                    <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
+                    <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Sexual Content"></span></p>
+                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
+                </div>
+            </div>
+            <!-- Add more implication videos as needed -->
+
+            <!-- Benign videos -->
+            <div class="video-item benign">
+                <div class="flag flag-benign">Benign</div>
+                <video src="video/benign/1.mp4" autoplay loop muted></video>
+                <div class="video-caption">
+                    <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
+                    <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Sexual Content"></span></p>
+                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
+                </div>
+            </div>
+            <div class="video-item benign">
+                <div class="flag flag-benign">Benign</div>
+                <video src="video/benign/2.mp4" autoplay loop muted></video>
+                <div class="video-caption">
+                    <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
+                    <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Sexual Content"></span></p>
+                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
+                </div>
+            </div>
+            <div class="video-item benign">
+                <div class="flag flag-benign">Benign</div>
+                <video src="video/benign/3.mp4" autoplay loop muted></video>
+                <div class="video-caption">
+                    <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
+                    <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Sexual Content"></span></p>
+                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
+                </div>
+            </div>
+            <div class="video-item benign">
+                <div class="flag flag-benign">Benign</div>
+                <video src="video/benign/.mp4" autoplay loop muted></video>
+                <div class="video-caption">
+                    <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
+                    <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Sexual Content"></span></p>
+                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
+                </div>
+            </div>
+            <!-- Add more benign videos as needed -->
+        </div>
+        
+
+    <script src="https://cdn.gradio.app/latest/gradio.js"></script>
+    <script>
+        // Gradio interface setup (as in the previous example)
+    </script>
     <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
     <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
-    <!-- Your custom script -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Fetch the JSON data
-            fetch('video_data.json')
-                .then(response => response.json())
-                .then(data => {
-                    generateVideoItems(data);
-                })
-                .catch(error => console.error('Error fetching video data:', error));
+            const filterButtons = document.querySelectorAll('.filter-button');
+            const subFilterContainer = document.querySelector('.sub-filter-container');
+            const subFilterButtons = document.querySelectorAll('.sub-filter-button');
+            const originalGrid = document.querySelector('.video-grid');
 
-            function generateVideoItems(videoData) {
-                const videoGrid = document.getElementById('video-grid');
+            // Create separate grids for each filter
+            const allGrid = originalGrid.cloneNode(true);
+            allGrid.id = 'all-grid';
+            const benignGrid = originalGrid.cloneNode(true);
+            benignGrid.id = 'benign-grid';
+            const sexualGrid = originalGrid.cloneNode(true);
+            sexualGrid.id = 'sexual-grid';
+            const sexualEvidentGrid = originalGrid.cloneNode(true);
+            sexualEvidentGrid.id = 'sexual-evident-grid';
+            const sexualSubtleGrid = originalGrid.cloneNode(true);
+            sexualSubtleGrid.id = 'sexual-subtle-grid';
+            const sexualImplicationGrid = originalGrid.cloneNode(true);
+            sexualImplicationGrid.id = 'sexual-implication-grid';
 
-                videoData.forEach(video => {
-                    // Create the video item container
-                    const videoItem = document.createElement('div');
-                    videoItem.classList.add('video-item');
-
-                    // Create the video element
-                    const videoElement = document.createElement('video');
-                    videoElement.src = video.videoPath;
-                    videoElement.autoplay = true;
-                    videoElement.loop = true;
-                    videoElement.muted = true;
-
-                    // Create the video caption container
-                    const videoCaption = document.createElement('div');
-                    videoCaption.classList.add('video-caption');
-
-                    // Create the description
-                    const descriptionP = document.createElement('p');
-                    const descriptionStrong = document.createElement('strong');
-                    descriptionStrong.textContent = 'Description:';
-                    const descriptionSpan = document.createElement('span');
-                    descriptionSpan.classList.add('stream-text');
-                    descriptionSpan.dataset.text = video.description;
-                    descriptionP.appendChild(descriptionStrong);
-                    descriptionP.appendChild(descriptionSpan);
-
-                    // Create the guardrail (if exists)
-                    let guardrailP;
-                    if (video.guardrail && video.guardrail.toLowerCase() !== 'placeholder') {
-                        guardrailP = document.createElement('p');
-                        const guardrailStrong = document.createElement('strong');
-                        guardrailStrong.textContent = 'Guardrail:';
-                        const guardrailSpan = document.createElement('span');
-                        guardrailSpan.classList.add('stream-text');
-                        guardrailSpan.dataset.text = video.guardrail;
-                        guardrailP.appendChild(guardrailStrong);
-                        guardrailP.appendChild(guardrailSpan);
+            // Function to prepare grid for a specific filter
+            function prepareGrid(grid, filter) {
+                const items = grid.querySelectorAll('.video-item');
+                const keepCount = {
+                    'all': {
+                        'benign': 1,
+                        'sexual-evident': 1,
+                        'sexual-subtle': 1,
+                        'sexual-implication': 1
                     }
+                };
+                const kept = {};
 
-                    // Create the explanation
-                    const explanationP = document.createElement('p');
-                    const explanationStrong = document.createElement('strong');
-                    explanationStrong.textContent = 'Explanation:';
-                    const explanationSpan = document.createElement('span');
-                    explanationSpan.classList.add('stream-text');
-                    explanationSpan.dataset.text = video.explanation;
-                    explanationP.appendChild(explanationStrong);
-                    explanationP.appendChild(explanationSpan);
-
-                    // Append elements to the caption
-                    videoCaption.appendChild(descriptionP);
-                    if (guardrailP) {
-                        videoCaption.appendChild(guardrailP);
+                items.forEach(item => {
+                    if (filter === 'all') {
+                        const subCategory = Array.from(item.classList).find(cls => 
+                            ['benign', 'sexual-evident', 'sexual-subtle', 'sexual-implication'].includes(cls)
+                        );
+                        if (!kept[subCategory]) {
+                            kept[subCategory] = 0;
+                        }
+                        if (kept[subCategory] < keepCount['all'][subCategory]) {
+                            kept[subCategory]++;
+                        } else {
+                            item.remove();
+                        }
+                    } else if (!item.classList.contains(filter)) {
+                        item.remove();
                     }
-                    videoCaption.appendChild(explanationP);
-
-                    // Append video and caption to the video item
-                    videoItem.appendChild(videoElement);
-                    videoItem.appendChild(videoCaption);
-
-                    // Append the video item to the grid
-                    videoGrid.appendChild(videoItem);
                 });
-
-                // Initialize the streaming text effect and Masonry layout
-                initializeEffects();
+                return grid;
             }
 
-            function initializeEffects() {
-                const videoItems = document.querySelectorAll('.video-item');
+            // Prepare each grid
+            prepareGrid(allGrid, 'all');
+            prepareGrid(benignGrid, 'benign');
+            prepareGrid(sexualGrid, 'sexual');
+            prepareGrid(sexualEvidentGrid, 'sexual-evident');
+            prepareGrid(sexualSubtleGrid, 'sexual-subtle');
+            prepareGrid(sexualImplicationGrid, 'sexual-implication');
 
-                videoItems.forEach(item => {
-                    const streamTexts = item.querySelectorAll('.stream-text');
+            // Add prepared grids to the document
+            const gridContainer = document.createElement('div');
+            gridContainer.id = 'grid-container';
+            gridContainer.appendChild(allGrid);
+            gridContainer.appendChild(benignGrid);
+            gridContainer.appendChild(sexualGrid);
+            gridContainer.appendChild(sexualEvidentGrid);
+            gridContainer.appendChild(sexualSubtleGrid);
+            gridContainer.appendChild(sexualImplicationGrid);
+            originalGrid.parentNode.replaceChild(gridContainer, originalGrid);
 
-                    // Initial streaming for all videos
-                    streamTexts.forEach(element => {
-                        element.textContent = '';
-                        streamText(element);
-                    });
-
-                    item.addEventListener('mouseenter', function() {
-                        streamTexts.forEach(element => {
-                            element.textContent = '';
-                            streamText(element);
-                        });
-                    });
+            // Initialize Masonry for each grid
+            const masonryInstances = {};
+            [allGrid, benignGrid, sexualGrid, sexualEvidentGrid, sexualSubtleGrid, sexualImplicationGrid].forEach(grid => {
+                masonryInstances[grid.id] = new Masonry(grid, {
+                    itemSelector: '.video-item',
+                    columnWidth: '.video-item',
+                    percentPosition: true,
+                    transitionDuration: '0.4s',
+                    gutter: 20
                 });
+            });
 
-                function streamText(element) {
-                    const text = element.dataset.text;
-                    let index = 0;
+            // Function to show a specific grid
+            function showGrid(gridId) {
+                document.querySelectorAll('#grid-container > .video-grid').forEach(grid => {
+                    grid.style.display = grid.id === gridId ? 'block' : 'none';
+                });
+                masonryInstances[gridId].layout();
+            }
 
-                    function addNextChar() {
-                        if (index < text.length) {
-                            element.textContent += text.charAt(index);
-                            index++;
-                            setTimeout(addNextChar, 50); // Adjust speed here
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const filter = this.getAttribute('data-filter');
+                    
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+
+                    if (filter === 'sexual') {
+                        subFilterContainer.classList.add('active');
+                        document.querySelector('.sexual-sub-filters').style.display = 'flex';
+                        document.querySelector('.sub-filter-button[data-filter="sexual-all"]').classList.add('active');
+                        showGrid('sexual-grid');
+                    } else {
+                        subFilterContainer.classList.remove('active');
+                        document.querySelector('.sexual-sub-filters').style.display = 'none';
+                        subFilterButtons.forEach(btn => btn.classList.remove('active'));
+
+                        switch(filter) {
+                            case 'all':
+                                showGrid('all-grid');
+                                break;
+                            case 'benign':
+                                showGrid('benign-grid');
+                                break;
+                            // Add cases for other main categories here
                         }
                     }
-
-                    addNextChar();
-                }
-
-                var grid = document.querySelector('.video-grid');
-                var msnry;
-
-                imagesLoaded(grid, function() {
-                    msnry = new Masonry(grid, {
-                        itemSelector: '.video-item',
-                        columnWidth: '.video-item',
-                        percentPosition: true,
-                        gutter: 20
-                    });
                 });
+            });
 
-                // Reflow masonry when videos are loaded
-                var videos = grid.querySelectorAll('video');
-                videos.forEach(function(video) {
-                    video.addEventListener('loadedmetadata', function() {
-                        msnry.layout();
-                    });
+            subFilterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const subFilter = this.getAttribute('data-filter');
+                    subFilterButtons.forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+
+                    switch(subFilter) {
+                        case 'sexual-all':
+                            showGrid('sexual-grid');
+                            break;
+                        case 'sexual-evident':
+                            showGrid('sexual-evident-grid');
+                            break;
+                        case 'sexual-subtle':
+                            showGrid('sexual-subtle-grid');
+                            break;
+                        case 'sexual-implication':
+                            showGrid('sexual-implication-grid');
+                            break;
+                    }
                 });
-            }
+            });
+
+            // Initial layout
+            showGrid('all-grid');
         });
     </script>
 </body>
