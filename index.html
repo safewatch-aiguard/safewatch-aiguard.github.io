@@ -77,33 +77,34 @@
             cursor: pointer;
         }
         .video-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
-        .video-container {
-            position: relative;
             width: 100%;
-            padding-top: 177.78%; /* 16:9 aspect ratio */
-            background-color: #000; /* Background color for letterboxing */
         }
-        .video-container video {
-            position: absolute;
-            top: 0;
-            left: 0;
+        .video-item {
+            width: calc(33.333% - 20px);
+            margin-bottom: 20px;
+            background-color: #000;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .video-item video {
             width: 100%;
-            height: 100%;
-            object-fit: contain; /* This will maintain aspect ratio */
+            display: block;
         }
         .video-caption {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
             background-color: rgba(0, 0, 0, 0.7);
             color: #ffffff;
             padding: 10px;
             text-align: center;
+        }
+        @media (max-width: 768px) {
+            .video-item {
+                width: calc(50% - 20px);
+            }
+        }
+        @media (max-width: 480px) {
+            .video-item {
+                width: 100%;
+            }
         }
     </style>
 </head>
@@ -142,19 +143,19 @@
         </div>
 
         <div class="video-grid">
-            <div class="video-container">
+            <div class="video-item">
                 <video src="video/a484464f4953ac28a19077fb208bf73a&l_6837.mp4" autoplay loop muted></video>
                 <div class="video-caption">Video 1 caption</div>
             </div>
-            <div class="video-container">
+            <div class="video-item">
                 <video src="video/a484464f4953ac28a19077fb208bf73a&l_6839.mp4" autoplay loop muted></video>
                 <div class="video-caption">Video 2 caption</div>
             </div>
-            <div class="video-container">
+            <div class="video-item">
                 <video src="video/c6de0308cacfd993ef282c8e1c646267&l_4706.mp4" autoplay loop muted></video>
                 <div class="video-caption">Video 3 caption</div>
             </div>
-            <div class="video-container">
+            <div class="video-item">
                 <video src="video/f0150a16a324336cda5d6dd0b69ed299&l_7733.mp4" autoplay loop muted></video>
                 <div class="video-caption">Video 4 caption</div>
             </div>
@@ -164,6 +165,31 @@
     <script src="https://cdn.gradio.app/latest/gradio.js"></script>
     <script>
         // Gradio interface setup (as in the previous example)
+    </script>
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+    <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var grid = document.querySelector('.video-grid');
+            var msnry;
+
+            imagesLoaded(grid, function() {
+                msnry = new Masonry(grid, {
+                    itemSelector: '.video-item',
+                    columnWidth: '.video-item',
+                    percentPosition: true,
+                    gutter: 20
+                });
+            });
+
+            // Reflow masonry when videos are loaded
+            var videos = grid.querySelectorAll('video');
+            videos.forEach(function(video) {
+                video.addEventListener('loadedmetadata', function() {
+                    msnry.layout();
+                });
+            });
+        });
     </script>
 </body>
 </html>
