@@ -80,21 +80,48 @@
             width: 100%;
         }
         .video-item {
+            position: relative;
             width: calc(33.333% - 20px);
             margin-bottom: 20px;
             background-color: #000;
             border-radius: 10px;
             overflow: hidden;
+            cursor: pointer;
+            transition: box-shadow 0.3s ease;
         }
         .video-item video {
             width: 100%;
             display: block;
+            transition: filter 0.3s ease;
         }
         .video-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
             background-color: rgba(0, 0, 0, 0.7);
             color: #ffffff;
-            padding: 10px;
+            padding: 15px;
             text-align: center;
+            z-index: 1;
+        }
+        .video-caption p {
+            margin: 5px 0;
+        }
+        .video-item:hover {
+            box-shadow: 0 0 10px 3px rgba(255, 0, 0, 0.5);
+        }
+        .video-item:hover video {
+            filter: brightness(0.7);
+        }
+        .stream-text::after {
+            content: '|';
+            animation: blink 0.7s infinite;
+        }
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0; }
+            100% { opacity: 1; }
         }
         @media (max-width: 768px) {
             .video-item {
@@ -145,19 +172,32 @@
         <div class="video-grid">
             <div class="video-item">
                 <video src="video/a484464f4953ac28a19077fb208bf73a&l_6837.mp4" autoplay loop muted></video>
-                <div class="video-caption">Video 1 caption</div>
+                <div class="video-caption">
+                    <p><strong>Video content:</strong> <span class="stream-text" data-text="Ants tunneling under moss."></span></p>
+                    <p class="hover-content"><strong>Guardrail:</strong> Sexual Content</p>
+                    <p class="hover-content"><strong>Violation Explanation:</strong> <span class="stream-text" data-text="No violation detected."></span></p>
+                </div>
             </div>
             <div class="video-item">
+                <div class="video-caption">
+                    <p><strong>Video content:</strong> <span class="stream-text" data-text="Ants tunneling under moss."></span></p>
+                    <p><strong>Violation Explanation:</strong> <span class="stream-text" data-text="No violation detected."></span></p>
+                </div>
                 <video src="video/a484464f4953ac28a19077fb208bf73a&l_6839.mp4" autoplay loop muted></video>
-                <div class="video-caption">Video 2 caption</div>
             </div>
             <div class="video-item">
+                <div class="video-caption">
+                    <p><strong>Video content:</strong> <span class="stream-text" data-text="Ants tunneling under moss."></span></p>
+                    <p><strong>Violation Explanation:</strong> <span class="stream-text" data-text="No violation detected."></span></p>
+                </div>
                 <video src="video/c6de0308cacfd993ef282c8e1c646267&l_4706.mp4" autoplay loop muted></video>
-                <div class="video-caption">Video 3 caption</div>
             </div>
             <div class="video-item">
+                <div class="video-caption">
+                    <p><strong>Video content:</strong> <span class="stream-text" data-text="Ants tunneling under moss."></span></p>
+                    <p><strong>Violation Explanation:</strong> <span class="stream-text" data-text="No violation detected."></span></p>
+                </div>
                 <video src="video/f0150a16a324336cda5d6dd0b69ed299&l_7733.mp4" autoplay loop muted></video>
-                <div class="video-caption">Video 4 caption</div>
             </div>
         </div>
         
@@ -170,6 +210,34 @@
     <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            const videoItems = document.querySelectorAll('.video-item');
+            
+            videoItems.forEach(item => {
+                const streamTexts = item.querySelectorAll('.stream-text');
+                
+                item.addEventListener('mouseenter', function() {
+                    streamTexts.forEach(element => {
+                        element.textContent = '';
+                        streamText(element);
+                    });
+                });
+            });
+
+            function streamText(element) {
+                const text = element.dataset.text;
+                let index = 0;
+                
+                function addNextChar() {
+                    if (index < text.length) {
+                        element.textContent += text.charAt(index);
+                        index++;
+                        setTimeout(addNextChar, 50); // Adjust speed here
+                    }
+                }
+                
+                addNextChar();
+            }
+
             var grid = document.querySelector('.video-grid');
             var msnry;
 
