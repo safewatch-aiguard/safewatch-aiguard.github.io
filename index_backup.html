@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SafeWatch: Efficient Safety-Policy Following Video Guardrail Model</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400&display=swap');
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #000000;
+            padding: 10px 0;
+        }
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+        .logo span {
+            font-family: 'Orbitron', sans-serif;
+            background: linear-gradient(to right, #cc0000, #3399ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+        }
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .main-title {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .main-logo {
+            height: 100px;
+            margin-right: 20px;
+        }
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 64px;
+            font-weight: 700;
+            margin: 0;
+            background: linear-gradient(to right, #cc0000, #3399ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            color: transparent;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        h2 {
+            font-family: 'Raleway', sans-serif;
+            font-size: 28px;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            color: #e0e0e0;
+            max-width: 800px;
+            margin: 20px auto 30px;
+            line-height: 1.4;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        .authors {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .affiliations {
+            font-size: 16px;
+            margin-bottom: 30px;
+            color: #888;
+        }
+        sup {
+            font-size: 12px;
+            vertical-align: super;
+        }
+        .affiliation {
+            background-color: #ffffff;
+            border-radius: 25px;
+            padding: 10px 20px;
+        }
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 40px;
+        }
+        .button {
+            background-color: #333333;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .video-grid {
+            width: 100%;
+        }
+        .video-item {
+            position: relative;
+            width: calc(33.333% - 20px);
+            margin-bottom: 20px;
+            background-color: #000;
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: box-shadow 0.3s ease;
+        }
+        .video-item video {
+            width: 100%;
+            display: block;
+            transition: filter 0.3s ease;
+        }
+        .video-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: #ffffff;
+            padding: 15px;
+            text-align: center;
+            z-index: 1;
+        }
+        .video-caption p {
+            margin: 5px 0;
+            display: flex;
+            align-items: flex-start;
+            text-align: left;
+        }
+        .label {
+            flex: 0 0 auto; /* Don't grow, don't shrink, size based on content */
+            padding-right: 10px;
+            font-weight: bold;
+            white-space: nowrap; /* Prevent wrapping */
+        }
+        .stream-text {
+            flex: 1 1 auto; /* Grow and shrink as needed */
+            min-width: 0; /* Allow text to shrink below its content size */
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+        .video-item:hover {
+            box-shadow: 0 0 10px 3px rgba(255, 0, 0, 0.5);
+        }
+        .video-item:hover video {
+            filter: brightness(0.7);
+        }
+        .stream-text::after {
+            content: '|';
+            animation: blink 0.7s infinite;
+        }
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+        @media (max-width: 768px) {
+            .video-item {
+                width: calc(50% - 20px);
+            }
+        }
+        @media (max-width: 480px) {
+            .video-item {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+                <img src="images/logo.png" alt="SafeWatch Logo">
+                <span>SafeWatch</span>
+            </div>
+            <div class="nav-links">
+                <a href="#download">Download</a>
+                <a href="#presentation">Presentation</a>
+                <a href="#demo">Demo</a>
+                <a href="#performance">Performance</a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="main-content">
+        <div class="main-title">
+            <img src="images/logo.png" alt="SafeWatch Logo" class="main-logo">
+            <h1>SafeWatch</h1>
+        </div>
+        <h2>An Efficient Safety-Policy Following Video Guardrail Model with Transparent Explanations</h2>
+        
+        <p class="authors">
+            Zhaorun Chen<sup>1</sup>, Francesco Pinto<sup>1</sup>, Minzhou Pan<sup>2</sup>, Bo Li<sup>1,2</sup>
+        </p>
+
+        <div class="affiliations">
+            <p><sup>1</sup>University of Chicago, <sup>2</sup>Virtue AI</p>
+        </div>
+
+        <div class="buttons">
+            <button class="button">Read research paper</button>
+            <button class="button">GitHub</button>
+            <button class="button">View more samples</button>
+        </div>
+
+        <div class="video-grid">
+            <div class="video-item">
+                <video src="video/sexual/subtle/5.mp4" autoplay loop muted></video>
+                <div class="video-caption">
+                    <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
+                    <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Sexual Content"></span></p>
+                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
+                </div>
+            </div>
+            <div class="video-item">
+                <div class="video-caption">
+                    <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under moss."></span></p>
+                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
+                </div>
+                <video src="video/sexual/subtle/3.mp4" autoplay loop muted></video>
+            </div>
+            <div class="video-item">
+                <div class="video-caption">
+                    <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under moss."></span></p>
+                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
+                </div>
+                <video src="video/benign/3.mp4" autoplay loop muted></video>
+            </div>
+            <div class="video-item">
+                <div class="video-caption">
+                    <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under moss."></span></p>
+                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
+                </div>
+                <video src="video/benign/1.mp4" autoplay loop muted></video>
+            </div>
+            <div class="video-item">
+                <div class="video-caption">
+                    <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under moss."></span></p>
+                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
+                </div>
+                <video src="video/sexual/subtle/2.mp4" autoplay loop muted></video>
+            </div>
+            <div class="video-item">
+                <div class="video-caption">
+                    <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under moss."></span></p>
+                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
+                </div>
+                <video src="video/sexual/subtle/7.mp4" autoplay loop muted></video>
+            </div>
+        </div>
+        
+
+    <script src="https://cdn.gradio.app/latest/gradio.js"></script>
+    <script>
+        // Gradio interface setup (as in the previous example)
+    </script>
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+    <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const videoItems = document.querySelectorAll('.video-item');
+            
+            videoItems.forEach(item => {
+                const streamTexts = item.querySelectorAll('.stream-text');
+                
+                // Initial streaming for all videos
+                streamTexts.forEach(streamText);
+
+                item.addEventListener('mouseenter', function() {
+                    streamTexts.forEach(element => {
+                        element.textContent = '';
+                        streamText(element);
+                    });
+                });
+            });
+
+            function streamText(element) {
+                const text = element.dataset.text;
+                let index = 0;
+                
+                function addNextChar() {
+                    if (index < text.length) {
+                        element.textContent += text.charAt(index);
+                        index++;
+                        setTimeout(addNextChar, 50); // Adjust speed here
+                    }
+                }
+                
+                addNextChar();
+            }
+
+            var grid = document.querySelector('.video-grid');
+            var msnry;
+
+            imagesLoaded(grid, function() {
+                msnry = new Masonry(grid, {
+                    itemSelector: '.video-item',
+                    columnWidth: '.video-item',
+                    percentPosition: true,
+                    gutter: 20
+                });
+            });
+
+            // Reflow masonry when videos are loaded
+            var videos = grid.querySelectorAll('video');
+            videos.forEach(function(video) {
+                video.addEventListener('loadedmetadata', function() {
+                    msnry.layout();
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -122,16 +122,19 @@
         }
         .video-grid {
             width: 100%;
+            text-align: center;
         }
         .video-item {
             position: relative;
             width: calc(33.333% - 20px);
-            margin-bottom: 20px;
+            margin: 10px;
             background-color: #000;
             border-radius: 10px;
             overflow: hidden;
             cursor: pointer;
             transition: box-shadow 0.3s ease;
+            display: inline-block;
+            vertical-align: top;
         }
         .video-item video {
             width: 100%;
@@ -146,7 +149,7 @@
             background-color: rgba(0, 0, 0, 0.7);
             color: #ffffff;
             padding: 15px;
-            text-align: center;
+            text-align: left;
             z-index: 1;
         }
         .video-caption p {
@@ -155,15 +158,11 @@
             align-items: flex-start;
             text-align: left;
         }
-        .label {
-            flex: 0 0 auto; /* Don't grow, don't shrink, size based on content */
-            padding-right: 10px;
-            font-weight: bold;
-            white-space: nowrap; /* Prevent wrapping */
+        .video-caption p strong {
+            margin-right: 5px;
         }
         .stream-text {
-            flex: 1 1 auto; /* Grow and shrink as needed */
-            min-width: 0; /* Allow text to shrink below its content size */
+            flex: 1;
             word-wrap: break-word;
             overflow-wrap: break-word;
         }
@@ -231,97 +230,151 @@
             <button class="button">View more samples</button>
         </div>
 
-        <div class="video-grid">
-            <div class="video-item">
-                <video src="video/a484464f4953ac28a19077fb208bf73a&l_6837.mp4" autoplay loop muted></video>
-                <div class="video-caption">
-                    <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                    <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Sexual Content"></span></p>
-                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                </div>
-            </div>
-            <div class="video-item">
-                <div class="video-caption">
-                    <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under moss."></span></p>
-                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                </div>
-                <video src="video/a484464f4953ac28a19077fb208bf73a&l_6839.mp4" autoplay loop muted></video>
-            </div>
-            <div class="video-item">
-                <div class="video-caption">
-                    <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under moss."></span></p>
-                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                </div>
-                <video src="video/c6de0308cacfd993ef282c8e1c646267&l_4706.mp4" autoplay loop muted></video>
-            </div>
-            <div class="video-item">
-                <div class="video-caption">
-                    <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under moss."></span></p>
-                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                </div>
-                <video src="video/f0150a16a324336cda5d6dd0b69ed299&l_7733.mp4" autoplay loop muted></video>
-            </div>
+        <div class="video-grid" id="video-grid">
+            <!-- Video items will be dynamically inserted here -->
         </div>
-        
+    </div>
 
-    <script src="https://cdn.gradio.app/latest/gradio.js"></script>
-    <script>
-        // Gradio interface setup (as in the previous example)
-    </script>
+    <!-- Include necessary scripts -->
     <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
     <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
+    <!-- Your custom script -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const videoItems = document.querySelectorAll('.video-item');
-            
-            videoItems.forEach(item => {
-                const streamTexts = item.querySelectorAll('.stream-text');
-                
-                // Initial streaming for all videos
-                streamTexts.forEach(streamText);
+            // Fetch the JSON data
+            fetch('video_data.json')
+                .then(response => response.json())
+                .then(data => {
+                    generateVideoItems(data);
+                })
+                .catch(error => console.error('Error fetching video data:', error));
 
-                item.addEventListener('mouseenter', function() {
+            function generateVideoItems(videoData) {
+                const videoGrid = document.getElementById('video-grid');
+
+                videoData.forEach(video => {
+                    // Create the video item container
+                    const videoItem = document.createElement('div');
+                    videoItem.classList.add('video-item');
+
+                    // Create the video element
+                    const videoElement = document.createElement('video');
+                    videoElement.src = video.videoPath;
+                    videoElement.autoplay = true;
+                    videoElement.loop = true;
+                    videoElement.muted = true;
+
+                    // Create the video caption container
+                    const videoCaption = document.createElement('div');
+                    videoCaption.classList.add('video-caption');
+
+                    // Create the description
+                    const descriptionP = document.createElement('p');
+                    const descriptionStrong = document.createElement('strong');
+                    descriptionStrong.textContent = 'Description:';
+                    const descriptionSpan = document.createElement('span');
+                    descriptionSpan.classList.add('stream-text');
+                    descriptionSpan.dataset.text = video.description;
+                    descriptionP.appendChild(descriptionStrong);
+                    descriptionP.appendChild(descriptionSpan);
+
+                    // Create the guardrail (if exists)
+                    let guardrailP;
+                    if (video.guardrail && video.guardrail.toLowerCase() !== 'placeholder') {
+                        guardrailP = document.createElement('p');
+                        const guardrailStrong = document.createElement('strong');
+                        guardrailStrong.textContent = 'Guardrail:';
+                        const guardrailSpan = document.createElement('span');
+                        guardrailSpan.classList.add('stream-text');
+                        guardrailSpan.dataset.text = video.guardrail;
+                        guardrailP.appendChild(guardrailStrong);
+                        guardrailP.appendChild(guardrailSpan);
+                    }
+
+                    // Create the explanation
+                    const explanationP = document.createElement('p');
+                    const explanationStrong = document.createElement('strong');
+                    explanationStrong.textContent = 'Explanation:';
+                    const explanationSpan = document.createElement('span');
+                    explanationSpan.classList.add('stream-text');
+                    explanationSpan.dataset.text = video.explanation;
+                    explanationP.appendChild(explanationStrong);
+                    explanationP.appendChild(explanationSpan);
+
+                    // Append elements to the caption
+                    videoCaption.appendChild(descriptionP);
+                    if (guardrailP) {
+                        videoCaption.appendChild(guardrailP);
+                    }
+                    videoCaption.appendChild(explanationP);
+
+                    // Append video and caption to the video item
+                    videoItem.appendChild(videoElement);
+                    videoItem.appendChild(videoCaption);
+
+                    // Append the video item to the grid
+                    videoGrid.appendChild(videoItem);
+                });
+
+                // Initialize the streaming text effect and Masonry layout
+                initializeEffects();
+            }
+
+            function initializeEffects() {
+                const videoItems = document.querySelectorAll('.video-item');
+
+                videoItems.forEach(item => {
+                    const streamTexts = item.querySelectorAll('.stream-text');
+
+                    // Initial streaming for all videos
                     streamTexts.forEach(element => {
                         element.textContent = '';
                         streamText(element);
                     });
-                });
-            });
 
-            function streamText(element) {
-                const text = element.dataset.text;
-                let index = 0;
-                
-                function addNextChar() {
-                    if (index < text.length) {
-                        element.textContent += text.charAt(index);
-                        index++;
-                        setTimeout(addNextChar, 50); // Adjust speed here
+                    item.addEventListener('mouseenter', function() {
+                        streamTexts.forEach(element => {
+                            element.textContent = '';
+                            streamText(element);
+                        });
+                    });
+                });
+
+                function streamText(element) {
+                    const text = element.dataset.text;
+                    let index = 0;
+
+                    function addNextChar() {
+                        if (index < text.length) {
+                            element.textContent += text.charAt(index);
+                            index++;
+                            setTimeout(addNextChar, 50); // Adjust speed here
+                        }
                     }
+
+                    addNextChar();
                 }
-                
-                addNextChar();
+
+                var grid = document.querySelector('.video-grid');
+                var msnry;
+
+                imagesLoaded(grid, function() {
+                    msnry = new Masonry(grid, {
+                        itemSelector: '.video-item',
+                        columnWidth: '.video-item',
+                        percentPosition: true,
+                        gutter: 20
+                    });
+                });
+
+                // Reflow masonry when videos are loaded
+                var videos = grid.querySelectorAll('video');
+                videos.forEach(function(video) {
+                    video.addEventListener('loadedmetadata', function() {
+                        msnry.layout();
+                    });
+                });
             }
-
-            var grid = document.querySelector('.video-grid');
-            var msnry;
-
-            imagesLoaded(grid, function() {
-                msnry = new Masonry(grid, {
-                    itemSelector: '.video-item',
-                    columnWidth: '.video-item',
-                    percentPosition: true,
-                    gutter: 20
-                });
-            });
-
-            // Reflow masonry when videos are loaded
-            var videos = grid.querySelectorAll('video');
-            videos.forEach(function(video) {
-                video.addEventListener('loadedmetadata', function() {
-                    msnry.layout();
-                });
-            });
         });
     </script>
 </body>
