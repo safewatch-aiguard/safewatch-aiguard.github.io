@@ -314,6 +314,23 @@
             background-color: #cc0000;
         }
 
+        .video-container {
+            height: 600px; /* Adjust this value as needed */
+            overflow-y: auto;
+            padding: 20px;
+            background-color: #222;
+            border-radius: 10px;
+        }
+
+        .video-item {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .video-item.loaded {
+            opacity: 1;
+        }
+
         .play-button {
             position: absolute;
             top: 50%;
@@ -426,397 +443,127 @@
             </div>
         </div>
 
-        <div class="video-grid">
-            <!-- Sexual: Evident videos -->
-            <div class="video-item sexual sexual-evident">
-                <div class="flag flag-sexual-evident">Sexual: Evident</div>
-                <video src="video/sexual/evident/1.mp4" playsinline muted loop poster="video/sexual/evident/1_poster.jpg">
-                    <source src="video/sexual/evident/1.webm" type="video/webm">
-                    <source src="video/sexual/evident/1.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <div class="video-caption">
-                    <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                    <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Sexual Content"></span></p>
-                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                </div>
+        <div class="video-container">
+            <div id="grid-container">
+                <!-- The video grids will be inserted here by JavaScript -->
             </div>
-            <div class="video-item sexual sexual-evident">
-                <div class="flag flag-sexual-evident">Sexual: Evident</div>
-                <video src="video/sexual/evident/2.mp4" playsinline muted loop poster="video/sexual/evident/2_poster.jpg">
-                    <source src="video/sexual/evident/2.webm" type="video/webm">
-                    <source src="video/sexual/evident/2.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <div class="video-caption">
-                    <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                    <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Sexual Content"></span></p>
-                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                </div>
-            </div>
-            <!-- <div class="video-item sexual sexual-evident">
-                <div class="flag flag-sexual-evident">Sexual: Evident</div>
-                <video src="video/sexual/evident/3.mp4" playsinline muted loop poster="video/sexual/evident/3_poster.jpg">
-                    <source src="video/sexual/evident/3.webm" type="video/webm">
-                    <source src="video/sexual/evident/3.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <div class="video-caption">
-                    <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                    <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Sexual Content"></span></p>
-                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                </div>
-            </div> -->
-            <!-- <div class="video-item sexual sexual-evident">
-                <div class="flag flag-sexual-evident">Sexual: Evident</div>
-                <video src="video/sexual/evident/4.mp4" playsinline muted loop poster="video/sexual/evident/4_poster.jpg">
-                    <source src="video/sexual/evident/4.webm" type="video/webm">
-                    <source src="video/sexual/evident/4.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <div class="video-caption">
-                    <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                    <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Sexual Content"></span></p>
-                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                </div>
-            </div> -->
-            <!-- Add more evident videos as needed -->
+        </div>
+    </div>
 
-            <!-- Sexual: Subtle videos -->
-            <div class="video-item sexual sexual-subtle">
-                <div class="flag flag-sexual-subtle">Sexual: Subtle</div>
-                <video src="video/sexual/subtle/1.mp4" playsinline muted loop poster="video/sexual/subtle/1_poster.jpg">
-                    <source src="video/sexual/subtle/1.webm" type="video/webm">
-                    <source src="video/sexual/subtle/1.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <div class="video-caption">
-                    <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                    <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Sexual Content"></span></p>
-                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                </div>
-            </div>
-            <div class="video-item sexual sexual-subtle">
-                <div class="flag flag-sexual-subtle">Sexual: Subtle</div>
-                <video src="video/sexual/subtle/2.mp4" playsinline muted loop poster="video/sexual/subtle/2_poster.jpg">
-                    <source src="video/sexual/subtle/2.webm" type="video/webm">
-                    <source src="video/sexual/subtle/2.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <div class="video-caption">
-                    <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                    <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Sexual Content"></span></p>
-                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                </div>
-            </div>
-            <!-- <div class="video-item sexual sexual-subtle">
-                <div class="flag flag-sexual-subtle">Sexual: Subtle</div>
-                <video src="video/sexual/subtle/3.mp4" playsinline muted loop poster="video/sexual/subtle/3_poster.jpg">
-                    <source src="video/sexual/subtle/3.webm" type="video/webm">
-                    <source src="video/sexual/subtle/3.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <div class="video-caption">
-                    <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                    <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Sexual Content"></span></p>
-                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                </div>
-            </div> -->
-            <!-- <div class="video-item sexual sexual-subtle">
-                <div class="flag flag-sexual-subtle">Sexual: Subtle</div>
-                <video src="video/sexual/subtle/4.mp4" playsinline muted loop poster="video/sexual/subtle/4_poster.jpg">
-                    <source src="video/sexual/subtle/4.webm" type="video/webm">
-                    <source src="video/sexual/subtle/4.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <div class="video-caption">
-                    <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                    <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Sexual Content"></span></p>
-                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                </div>
-            </div> -->
-            <!-- <div class="video-item sexual sexual-subtle">
-                <div class="flag flag-sexual-subtle">Sexual: Subtle</div>
-                <video src="video/sexual/subtle/5.mp4" playsinline muted loop poster="video/sexual/subtle/5_poster.jpg">
-                    <source src="video/sexual/subtle/5.webm" type="video/webm">
-                    <source src="video/sexual/subtle/5.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <div class="video-caption">
-                    <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                    <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Sexual Content"></span></p>
-                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                </div>
-            </div> -->
-            <!-- Add more subtle videos as needed -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const gridContainer = document.getElementById('grid-container');
+            const filterButtons = document.querySelectorAll('.filter-button');
+            const subFilterButtons = document.querySelectorAll('.sub-filter-button');
+            const videoItems = document.querySelectorAll('.video-item');
 
-            <!-- Sexual: Implication videos -->
-            <div class="video-item sexual sexual-implication">
-                <div class="flag flag-sexual-implication">Sexual: Implication</div>
-                <video src="video/sexual/implication/1.mp4" playsinline muted loop poster="video/sexual/implication/1_poster.jpg">
-                    <source src="video/sexual/implication/1.webm" type="video/webm">
-                    <source src="video/sexual/implication/1.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <div class="video-caption">
-                    <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                    <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Sexual Content"></span></p>
-                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                </div>
-            </div>
-            <div class="video-item sexual sexual-implication">
-                <div class="flag flag-sexual-implication">Sexual: Implication</div>
-                <video src="video/sexual/implication/2.mp4" playsinline muted loop poster="video/sexual/implication/2_poster.jpg">
-                    <source src="video/sexual/implication/2.webm" type="video/webm">
-                    <source src="video/sexual/implication/2.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <div class="video-caption">
-                    <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                    <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Sexual Content"></span></p>
-                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                </div>
-            </div>
-            <!-- <div class="video-item sexual sexual-implication">
-                <div class="flag flag-sexual-implication">Sexual: Implication</div>
-                <video src="video/sexual/implication/3.mp4" playsinline muted loop poster="video/sexual/implication/3_poster.jpg">
-                    <source src="video/sexual/implication/3.webm" type="video/webm">
-                    <source src="video/sexual/implication/3.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <div class="video-caption">
-                    <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                    <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Sexual Content"></span></p>
-                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                </div>
-            </div> -->
-            <!-- <div class="video-item sexual sexual-implication">
-                <div class="flag flag-sexual-implication">Sexual: Implication</div>
-                <video src="video/sexual/implication/4.mp4" playsinline muted loop poster="video/sexual/implication/4_poster.jpg">
-                    <source src="video/sexual/implication/4.webm" type="video/webm">
-                    <source src="video/sexual/implication/4.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <div class="video-caption">
-                    <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                    <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Sexual Content"></span></p>
-                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                </div>
-            </div> -->
-            <!-- Add more implication videos as needed -->
+            // Filtering logic
+            function filterVideos(filter) {
+                videoItems.forEach(item => {
+                    if (filter === 'all' || item.classList.contains(filter)) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            }
 
-            <!-- Sexual: Hentai videos -->
-            <div class="video-item sexual sexual-hentai">
-                <div class="flag flag-sexual-hentai">Sexual: Hentai</div>
-                <video src="video/sexual/hentai/1.mp4" playsinline muted loop poster="video/sexual/hentai/1_poster.jpg">
-                    <source src="video/sexual/hentai/1.webm" type="video/webm">
-                    <source src="video/sexual/hentai/1.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <div class="video-caption">
-                    <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                    <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Sexual Content"></span></p>
-                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                </div>
-            </div>
-            <div class="video-item sexual sexual-hentai">
-                <div class="flag flag-sexual-hentai">Sexual: Hentai</div>
-                <video src="video/sexual/hentai/2.mp4" playsinline muted loop poster="video/sexual/hentai/2_poster.jpg">
-                    <source src="video/sexual/hentai/2.webm" type="video/webm">
-                    <source src="video/sexual/hentai/2.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <div class="video-caption">
-                    <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                    <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Sexual Content"></span></p>
-                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                </div>
-            </div>
-            <!-- <div class="video-item sexual sexual-hentai">
-                <div class="flag flag-sexual-hentai">Sexual: Hentai</div>
-                <video src="video/sexual/hentai/3.mp4" playsinline muted loop poster="video/sexual/hentai/3_poster.jpg">
-                    <source src="video/sexual/hentai/3.webm" type="video/webm">
-                    <source src="video/sexual/hentai/3.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <div class="video-caption">
-                    <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                    <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Sexual Content"></span></p>
-                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                </div>
-            </div> -->
+            // Sub-filtering logic
+            function subFilterVideos(subFilter) {
+                videoItems.forEach(item => {
+                    if (subFilter === 'all' || item.classList.contains(subFilter)) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            }
 
-            <!-- Abuse: Animal Abuse videos -->
-            <div class="video-item abuse abuse-animal">
-                <div class="flag flag-abuse-animal">Abuse: Animal Abuse</div>
-                <video src="video/abuse/animal_abuse/1.mp4" playsinline muted loop poster="video/abuse/animal_abuse/1_poster.jpg">
-                    <source src="video/abuse/animal_abuse/1.webm" type="video/webm">
-                    <source src="video/abuse/animal_abuse/1.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <div class="video-caption">
-                    <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                    <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Abuse"></span></p>
-                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                </div>
-            </div>
+            // Handle filter button clicks
+            filterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const filter = button.dataset.filter;
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    filterVideos(filter);
+                    showSubFilters(filter);
+                });
+            });
 
-            <div class="video-item abuse abuse-animal">
-                <div class="flag flag-abuse-animal">Abuse: Animal Abuse</div>
-                <video src="video/abuse/animal_abuse/2.mp4" playsinline muted loop poster="video/abuse/animal_abuse/2_poster.jpg">
-                    <source src="video/abuse/animal_abuse/2.webm" type="video/webm">
-                    <source src="video/abuse/animal_abuse/2.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <div class="video-caption">
-                    <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                    <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Abuse"></span></p>
-                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                </div>
-            </div>
+            // Handle sub-filter button clicks
+            subFilterButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const subFilter = button.dataset.filter;
+                    subFilterButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    subFilterVideos(subFilter);
+                });
+            });
 
-            <!-- Abuse: Child Abuse videos -->
-            <div class="video-item abuse abuse-child">
-                <div class="flag flag-abuse-child">Abuse: Child Abuse</div>
-                <video src="video/abuse/child_abuse/1.mp4" playsinline muted loop poster="video/abuse/child_abuse/1_poster.jpg">
-                    <source src="video/abuse/child_abuse/1.webm" type="video/webm">
-                    <source src="video/abuse/child_abuse/1.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <div class="video-caption">
-                    <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                    <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Abuse"></span></p>
-                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                </div>
-            </div>
+            // Show/hide sub-filter buttons based on main filter
+            function showSubFilters(filter) {
+                const subFilterContainers = document.querySelectorAll('.sub-filter-container > div');
+                subFilterContainers.forEach(container => {
+                    if (container.classList.contains(`${filter}-sub-filters`)) {
+                        container.style.display = 'flex';
+                    } else {
+                        container.style.display = 'none';
+                    }
+                });
+            }
 
-            <div class="video-item abuse abuse-child">
-                <div class="flag flag-abuse-child">Abuse: Child Abuse</div>
-                <video src="video/abuse/child_abuse/2.mp4" playsinline muted loop poster="video/abuse/child_abuse/2_poster.jpg">
-                    <source src="video/abuse/child_abuse/2.webm" type="video/webm">
-                    <source src="video/abuse/child_abuse/2.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <div class="video-caption">
-                    <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                    <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Abuse"></span></p>
-                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                </div>
-            </div>
+            // Lazy loading and playback handling
+            function handleVideoPlayback() {
+                const options = {
+                    root: document.querySelector('.video-container'),
+                    rootMargin: '0px',
+                    threshold: 0.1
+                };
 
-            <div class="video-item abuse abuse-child">
-                <div class="flag flag-abuse-child">Abuse: Child Abuse</div>
-                <video src="video/abuse/child_abuse/3.mp4" playsinline muted loop poster="video/abuse/child_abuse/3_poster.jpg">
-                    <source src="video/abuse/child_abuse/3.webm" type="video/webm">
-                    <source src="video/abuse/child_abuse/3.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <div class="video-caption">
-                    <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                    <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Abuse"></span></p>
-                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                </div>
-            </div>
+                const observer = new IntersectionObserver((entries, observer) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const videoItem = entry.target;
+                            const video = videoItem.querySelector('video');
+                            const playButton = document.createElement('button');
+                            playButton.textContent = 'Play';
+                            playButton.className = 'play-button';
 
-            <!-- Abuse: Campus Bullying videos -->
-            <div class="video-item abuse abuse-campus">
-                <div class="flag flag-abuse-campus">Abuse: Campus Bullying</div>
-                <video src="video/abuse/campus_bully/1.mp4" playsinline muted loop poster="video/abuse/campus_bully/1_poster.jpg">
-                    <source src="video/abuse/campus_bully/1.webm" type="video/webm">
-                    <source src="video/abuse/campus_bully/1.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <div class="video-caption">
-                    <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                    <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Abuse"></span></p>
-                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                </div>
-            </div>
+                            if (!video.src) {
+                                video.src = video.dataset.src;
+                            }
 
-            <div class="video-item abuse abuse-campus">
-                <div class="flag flag-abuse-campus">Abuse: Campus Bullying</div>
-                <video src="video/abuse/campus_bully/2.mp4" playsinline muted loop poster="video/abuse/campus_bully/2_poster.jpg">
-                    <source src="video/abuse/campus_bully/2.webm" type="video/webm">
-                    <source src="video/abuse/campus_bully/2.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <div class="video-caption">
-                    <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                    <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Abuse"></span></p>
-                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                </div>
-            </div>
+                            videoItem.classList.add('loaded');
+                            videoItem.appendChild(playButton);
 
-            <div class="video-item abuse abuse-sexual">
-                <div class="flag flag-abuse-sexual">Abuse: Sexual Harassment</div>
-                <video src="video/abuse/sex_abuse/2.mp4" playsinline muted loop poster="video/abuse/sex_abuse/2_poster.jpg">
-                    <source src="video/abuse/sex_abuse/2.webm" type="video/webm">
-                    <source src="video/abuse/sex_abuse/2.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <div class="video-caption">
-                    <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                    <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Abuse"></span></p>
-                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                </div>
-            </div>
+                            playButton.addEventListener('click', () => {
+                                video.play();
+                                playButton.style.display = 'none';
+                            });
 
-            <div class="video-item abuse abuse-sexual">
-                <div class="flag flag-abuse-sexual">Abuse: Sexual Harassment</div>
-                <video src="video/abuse/sex_abuse/1.mp4" playsinline muted loop poster="video/abuse/sex_abuse/1_poster.jpg">
-                    <source src="video/abuse/sex_abuse/1.webm" type="video/webm">
-                    <source src="video/abuse/sex_abuse/1.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <div class="video-caption">
-                    <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                    <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Abuse"></span></p>
-                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                </div>
-            </div>
+                            observer.unobserve(videoItem);
+                        }
+                    });
+                }, options);
 
-            <!-- <div class="video-item abuse abuse-sexual">
-                <div class="flag flag-abuse-sexual">Abuse: Sexual Harassment</div>
-                <video src="video/abuse/sex_abuse/3.mp4" playsinline muted loop poster="video/abuse/sex_abuse/3_poster.jpg">
-                    <source src="video/abuse/sex_abuse/3.webm" type="video/webm">
-                    <source src="video/abuse/sex_abuse/3.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <div class="video-caption">
-                    <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                    <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Abuse"></span></p>
-                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                </div>
-            </div>
+                videoItems.forEach(item => {
+                    observer.observe(item);
+                });
+            }
 
-            <div class="video-item abuse abuse-sexual">
-                <div class="flag flag-abuse-sexual">Abuse: Sexual Harassment</div>
-                <video src="video/abuse/sex_abuse/4.mp4" playsinline muted loop poster="video/abuse/sex_abuse/4_poster.jpg">
-                    <source src="video/abuse/sex_abuse/4.webm" type="video/webm">
-                    <source src="video/abuse/sex_abuse/4.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <div class="video-caption">
-                    <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                    <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Abuse"></span></p>
-                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                </div>
-            </div> -->
+            // Modify the video elements to use data-src instead of src
+            document.querySelectorAll('.video-item video').forEach(video => {
+                video.dataset.src = video.src;
+                video.removeAttribute('src');
+                video.load();
+            });
 
-            <!-- Violence: Fighting videos -->
-            <div class="video-item violence violence-fighting">
-                <div class="flag flag-violence-fighting">Violence: Fighting</div>
-                <video src="video/violence/fighting/1.mp4" playsinline muted loop poster="video/violence/fighting/1_poster.jpg">
-                    <source src="video/violence/fighting/1.webm" type="video/webm">
-                    <source src="video/violence/fighting/1.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <div class="video-caption">
-                    <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                    <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Violence"></span></p>
-                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                </div>
-            </div>
+            // Call the function after creating the grid
+            handleVideoPlayback();
+        });
+    </script>
+</body>
+</html>
 
             <div class="video-item violence violence-fighting">
                 <div class="flag flag-violence-fighting">Violence: Fighting</div>
