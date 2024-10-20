@@ -138,6 +138,7 @@
             overflow: hidden;
             cursor: pointer;
             transition: box-shadow 0.3s ease;
+            min-height: 200px; /* Added minimum height */
         }
         .video-item video {
             width: 100%;
@@ -1358,7 +1359,11 @@
                 document.querySelectorAll('#grid-container > .video-grid').forEach(grid => {
                     grid.style.display = grid.id === gridId ? 'block' : 'none';
                 });
-                masonryInstances[gridId].layout();
+                
+                // Use imagesLoaded to ensure all images are loaded before layout
+                imagesLoaded(`#${gridId}`, function() {
+                    masonryInstances[gridId].layout();
+                });
             }
 
             filterButtons.forEach(button => {
@@ -1444,6 +1449,11 @@
 
             // Initial layout
             showGrid('all-grid');
+
+            // Ensure proper layout after a short delay
+            setTimeout(() => {
+                masonryInstances['all-grid'].layout();
+            }, 100);
 
             // Add this new function
             function handleVideoPlayback() {
