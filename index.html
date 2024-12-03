@@ -60,7 +60,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
         .main-logo {
             height: 100px;
@@ -116,7 +116,7 @@
             display: flex;
             justify-content: center;
             gap: 10px;
-            margin-bottom: 40px;
+            margin-bottom: 10px;
         }
         .button {
             background-color: #333333;
@@ -128,69 +128,49 @@
         }
         .video-grid {
             width: 100%;
+            margin: 0 auto;
+        }
+        .grid-sizer,
+        .video-item {
+            width: calc(33.333% - 20px);
         }
         .video-item {
-            position: relative;
-            width: calc(25% - 20px); /* Adjust for 4 items per row with 20px gutter */
             margin-bottom: 20px;
             background-color: #000;
             border-radius: 10px;
             overflow: hidden;
-            cursor: pointer;
-            transition: box-shadow 0.3s ease;
-            min-height: 200px; /* Added minimum height */
+            position: relative;
         }
         .video-item video {
             width: 100%;
+            height: auto;
             display: block;
-            transition: filter 0.3s ease;
         }
         .flag {
             position: absolute;
-            top: 15px;
-            right: 15px;
+            top: 10px;
+            left: 10px;
+            padding: 5px 10px;
+            border-radius: 4px;
             color: white;
-            padding: 8px 15px;
-            border-radius: 6px;
-            font-family: 'Roboto Mono', monospace;
             font-size: 14px;
-            font-weight: bold;
-            text-transform: uppercase;
-            box-shadow: 0 3px 6px rgba(0,0,0,0.3);
             z-index: 2;
-        }
-        .flag-sexual-evident {
-            background: linear-gradient(135deg, #ff0000, #ff6600);
-        }
-        .flag-sexual-subtle {
-            background: linear-gradient(135deg, #ff6600, #ffcc00);
-        }
-        .flag-sexual-implication {
-            background: linear-gradient(135deg, #ffcc00, #ffff00);
-        }
-        .flag-benign {
-            background: linear-gradient(135deg, #00cc00, #00ff00);
-        }
-        .flag-extremism-selfharm {
-            background: linear-gradient(135deg, #8B0000, #FF4500);
         }
         .video-caption {
             position: absolute;
             bottom: 0;
             left: 0;
             right: 0;
-            background-color: rgba(0, 0, 0, 0.7);
-            color: #ffffff;
+            background: rgba(0, 0, 0, 0.7);
             padding: 15px;
-            text-align: center;
-            z-index: 1;
+            color: white;
         }
         .video-caption p {
             margin: 5px 0;
-            display: flex;
-            align-items: flex-start;
-            text-align: left;
-            font-family: 'Raleway', sans-serif;
+            font-size: 14px;
+        }
+        .video-caption strong {
+            color: #ccc;
         }
         .label {
             flex: 0 0 auto;
@@ -225,18 +205,24 @@
             50% { opacity: 0; }
             100% { opacity: 1; }
         }
-        @media (max-width: 1200px) { /* Adjusted breakpoint */
+        @media (max-width: 1200px) {
             .video-item {
-                width: calc(33.333% - 20px);
+                width: calc(50% - 20px);
+            }
+            .video-item.wide {
+                width: calc(100% - 20px);
             }
         }
-        @media (max-width: 900px) { /* Adjusted breakpoint */
+        @media (max-width: 900px) {
             .video-item {
                 width: calc(50% - 20px);
             }
         }
-        @media (max-width: 600px) { /* Kept this breakpoint */
+        @media (max-width: 600px) {
             .video-item {
+                width: 100%;
+            }
+            .video-item.wide {
                 width: 100%;
             }
         }
@@ -341,9 +327,7 @@
             max-width: 1400px;
             margin: 0 auto;
             padding: 20px;
-            background-color: rgba(0, 0, 0, 0.1);
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
         }
 
         /* SafeWatch-Bench Section Styles */
@@ -420,7 +404,693 @@
                 font-size: 16px;
             }
         }
+
+        /* Video Grid Container */
+        #video-section {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            height: 1000px;
+            overflow-y: auto;
+            filter: blur(5px);
+            transition: filter 0.3s ease;
+            pointer-events: none;
+            margin-bottom: 40px; /* Add space between video section and dataset section */
+        }
+
+        #video-section.unlocked {
+            filter: none;
+            pointer-events: auto; /* Re-enable interaction when unlocked */
+        }
+
+        /* Style the scrollbar for a nicer look */
+        #video-section::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        #video-section::-webkit-scrollbar-thumb {
+            background-color: #ccc;
+            border-radius: 10px;
+            border: 3px solid #333;
+        }
+
+        #video-section::-webkit-scrollbar-track {
+            background-color: #444;
+        }
+
+        /* See Demos Button */
+        .see-demos-button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            background-color: #cc0000;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.2em;
+            transition: background-color 0.3s ease;
+        }
+
+        .see-demos-button:hover {
+            background-color: #ff3333;
+        }
+
+        /* Centered Title */
+        .centered-title {
+            text-align: left;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 36px;
+            color: #ffffff;
+            margin: 0 0 15px;
+            padding-top: 5px;
+        }
+
+        /* Image and Caption */
+        .image-container {
+            text-align: center;
+            margin: 20px auto;
+            max-width: 1400px; /* Match video section width */
+            padding: 0 20px;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .caption {
+            font-family: 'Raleway', sans-serif;
+            font-size: 16px;
+            color: #cccccc;
+            max-width: 800px;
+            margin: 20px auto;
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        /* Video module container */
+        .video-module {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 1000px;
+        }
+
+        .video-container {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .video-item {
+            position: relative;
+            background: #000;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .video-item video {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            display: block;
+        }
+
+        .flag {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: red;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 14px;
+            z-index: 2;
+        }
+
+        .video-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 10px;
+        }
+
+        .video-caption p {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+
+        .video-caption strong {
+            color: #ccc;
+        }
+
+        /* Dataset info section (always visible, no blur) */
+        .dataset-info {
+            padding: 20px;
+            background-color: #1a1a1a;
+            border-radius: 0 0 12px 12px;
+        }
+
+        /* Method section (separate) */
+        .method-section {
+            max-width: 1400px;
+            margin: 80px auto;
+            padding: 0 20px;
+        }
+
+        /* Custom scrollbar */
+        #video-section::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        #video-section::-webkit-scrollbar-track {
+            background: #2a2a2a;
+            border-radius: 5px;
+        }
+
+        #video-section::-webkit-scrollbar-thumb {
+            background: #4a4a4a;
+            border-radius: 5px;
+        }
+
+        #video-section::-webkit-scrollbar-thumb:hover {
+            background: #5a5a5a;
+        }
+
+        /* Animation for the border */
+        @keyframes gradientBorder {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .filter-buttons {
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .filter-button {
+            padding: 8px 16px;
+            margin: 0 5px;
+            border: none;
+            border-radius: 4px;
+            background: #333;
+            color: white;
+            cursor: pointer;
+        }
+
+        .filter-button.active {
+            background: #cc0000;
+        }
+
+        .sub-filter-container {
+            margin: 10px 0;
+            text-align: center;
+        }
+
+        .sub-filter-buttons {
+            display: none;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .sub-filter-button {
+            padding: 6px 12px;
+            border: none;
+            border-radius: 4px;
+            background: #444;
+            color: white;
+            cursor: pointer;
+        }
+
+        .sub-filter-button.active {
+            background: #cc0000;
+        }
+
+        /* Add different sizes for variety */
+        .video-item.wide {
+            width: calc(66.666% - 20px); /* 2x width */
+        }
+
+        .video-item.tall video {
+            /* Remove aspect-ratio: 9/16; */
+        }
+
+        .video-item.wide video {
+            /* Remove aspect-ratio: 21/9; */
+        }
+
+        .flag-sexual-hentai {
+            background: linear-gradient(135deg, #ff69b4, #ff1493);
+        }
+
+        .flag-abuse-animal {
+            background: linear-gradient(135deg, #8B0000, #FF4500);
+        }
+
+        .flag-abuse-campus {
+            background: linear-gradient(135deg, #FF4500, #FF8C00);
+        }
+
+        .flag-abuse-child {
+            background: linear-gradient(135deg, #8B0000, #DC143C);
+        }
+
+        .flag-abuse-sexual {
+            background: linear-gradient(135deg, #800080, #FF1493);
+        }
+
+        .flag-violence-assault {
+            background: linear-gradient(135deg, #FF0000, #FF4500);
+        }
+
+        .flag-violence-fighting {
+            background: linear-gradient(135deg, #FF4500, #FF8C00);
+        }
+
+        .flag-violence-shooting {
+            background: linear-gradient(135deg, #8B0000, #DC143C);
+        }
+
+        .flag-violence-sexual-violence {
+            background: linear-gradient(135deg, #800080, #FF1493);
+        }
+
+        .flag-violence-vandalism {
+            background: linear-gradient(135deg, #FF6347, #FF4500);
+        }
+
+        .flag-illegal-robbery {
+            background: linear-gradient(135deg, #8B0000, #FF4500);
+        }
+
+        .flag-illegal-shoplifting {
+            background: linear-gradient(135deg, #FF6347, #FF8C00);
+        }
+
+        .flag-illegal-war {
+            background: linear-gradient(135deg, #8B0000, #DC143C);
+        }
+
+        .flag-extremism-selfharm {
+            background: linear-gradient(135deg, #800000, #FF4500);
+        }
+
+        .flag-extremism-disturbing {
+            background: linear-gradient(135deg, #4B0082, #8B0000);
+        }
+
+        .flag-extremism-antisocial {
+            background: linear-gradient(135deg, #2F4F4F, #4A4A4A);
+        }
+
+        .flag-extremism-depression {
+            background: linear-gradient(135deg, #483D8B, #4682B4);
+        }
+
+        .flag-misinformation-acting {
+            background: linear-gradient(135deg, #FFA500, #FF8C00);
+        }
+
+        .flag-misinformation-deepfake {
+            background: linear-gradient(135deg, #00008B, #0000FF);
+        }
+
+        .flag-misinformation-misinformation {
+            background: linear-gradient(135deg, #FF0000, #FF4500);
+        }
+
+        .flag-misinformation-out-of-date {
+            background: linear-gradient(135deg, #808080, #FFFFFF);
+        }
+
+        .see-demos-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 40px 0; /* Increased margin */
+        }
+
+        .see-demos-button {
+            padding: 15px 40px; /* Larger padding */
+            background: linear-gradient(45deg, #cc0000, #ff3333);
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.3em;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(204, 0, 0, 0.3);
+            animation: buttonPulse 2s infinite;
+        }
+
+        .see-demos-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(204, 0, 0, 0.5);
+            background: linear-gradient(45deg, #ff3333, #ff6666);
+        }
+
+        .see-demos-button::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                rgba(255, 255, 255, 0.1),
+                transparent
+            );
+            transform: rotate(45deg);
+            animation: shimmer 3s infinite;
+        }
+
+        /* Animations */
+        @keyframes buttonPulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                left: -50%;
+            }
+            100% {
+                left: 150%;
+            }
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+
+        .modal-content {
+            position: relative;
+            background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
+            margin: 15% auto;
+            padding: 0;
+            width: 400px;
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+            animation: modalSlideIn 0.3s ease-out;
+        }
+
+        .modal-header {
+            padding: 20px;
+            background: linear-gradient(145deg, #cc0000, #990000);
+            border-radius: 15px 15px 0 0;
+            color: white;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modal-body {
+            padding: 20px;
+            color: #ffffff;
+            font-family: 'Raleway', sans-serif;
+            font-size: 1.1em;
+            line-height: 1.5;
+        }
+
+        .modal-footer {
+            padding: 20px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            border-top: 1px solid #333;
+        }
+
+        .modal-button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Raleway', sans-serif;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        .cancel-btn {
+            background-color: #333;
+            color: white;
+        }
+
+        .confirm-btn {
+            background: linear-gradient(145deg, #cc0000, #990000);
+            color: white;
+        }
+
+        .modal-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .cancel-btn:hover {
+            background-color: #444;
+        }
+
+        .confirm-btn:hover {
+            background: linear-gradient(145deg, #ff0000, #cc0000);
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Enhance the concealment and add darkening overlay */
+        #video-section:not(.unlocked) {
+            position: relative;
+            pointer-events: none;
+        }
+
+        #video-section:not(.unlocked)::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8); /* Darker overlay without blur */
+            z-index: 2;
+        }
+
+        /* Remove the hint message */
+        #video-section:not(.unlocked)::after {
+            content: none;
+        }
+
+        /* Update the modal button styles */
+        .modal-button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-family: 'Raleway', sans-serif;
+            font-size: 1em;
+            transition: all 0.3s ease;
+        }
+
+        .confirm-btn {
+            background: linear-gradient(145deg, #cc0000, #990000);
+            color: white;
+        }
+
+        /* Add these new styles for disabled state */
+        .confirm-btn:disabled {
+            background: linear-gradient(145deg, #666666, #444444);
+            cursor: not-allowed;
+            opacity: 0.7;
+            color: #cccccc;
+        }
+
+        .confirm-btn:disabled:hover {
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Update these styles in your existing CSS */
+        .overview-section {
+            max-width: 1400px;
+            margin: 5px auto;
+            padding: 15px 20px;
+            background: linear-gradient(145deg, #1a1a1a, #2a2a2a);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .overview-content {
+            padding: 10px;
+        }
+
+        .highlight-text {
+            font-size: 18px;
+            color: #ffffff;
+            font-weight: 400;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            text-align: left;
+            max-width: 900px;
+            margin: 0 0 25px;
+        }
+
+        .key-features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .feature {
+            background: rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+            background: rgba(0, 0, 0, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+
+        .feature-text {
+            font-size: 18px;
+            font-weight: 600;
+            color: #ffffff;
+            margin-bottom: 8px;
+            font-family: 'Orbitron', sans-serif;
+        }
+
+        .feature p {
+            font-size: 14px;
+            line-height: 1.4;
+            margin: 0;
+            color: #cccccc;
+        }
+
+        .performance-highlights {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .highlight-box {
+            padding: 18px;
+            border-radius: 12px;
+            text-align: left;
+            transition: all 0.3s ease;
+            background: linear-gradient(145deg, #cc0000, #990000);
+        }
+
+        .model-stats, .dataset-stats, .benchmark-stats {
+            background: linear-gradient(145deg, #cc0000, #990000);
+        }
+
+        .highlight-number {
+            font-size: 30px;
+            font-weight: 700;
+            color: #ffffff;
+            display: block;
+            font-family: 'Orbitron', sans-serif;
+            margin-bottom: 4px;
+        }
+
+        .highlight-label {
+            font-size: 15px;
+            color: #ffffff;
+            font-weight: 600;
+            display: block;
+            margin-bottom: 3px;
+        }
+
+        .sub-label {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.8);
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .key-features,
+            .performance-highlights {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .highlight-text {
+                font-size: 16px;
+            }
+            
+            .feature-text {
+                font-size: 16px;
+            }
+        }
     </style>
+    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+    <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
 </head>
 <body>
     <header>
@@ -459,7 +1129,43 @@
             <button class="button">View more samples</button>
         </div>
 
-        <!-- Main filter buttons -->
+        <div class="overview-section">
+            <div class="centered-title">Overview</div>
+            <div class="overview-container">
+                <div class="overview-content">
+                    <div class="overview-text">
+                        <p class="highlight-text">
+                            With the rapid growth of AI-generated video content, <span class="gradient-text">SAFEWATCH</span> introduces a novel, efficient video guardrail system that ensures safety and security across platforms through customized policy following and transparent explanations.
+                        </p>
+                        
+                        <div class="key-features">
+                            <div class="feature">
+                                <span class="feature-icon">🔄</span>
+                                <span class="feature-text">SafeWatch Model</span>
+                                <p>Novel parallel policy encoding with policy-aware token pruning for efficient and unbiased safety assessment</p>
+                            </div>
+                            <div class="feature">
+                                <span class="feature-icon">📊</span>
+                                <span class="feature-text">SafeWatch-Bench</span>
+                                <p>2M+ curated videos using multi-agent system, covering both real-world scenarios and GenAI content</p>
+                            </div>
+                            <div class="feature">
+                                <span class="feature-icon">🎯</span>
+                                <span class="feature-text">Comprehensive Evaluation</span>
+                                <p>30+ safety tasks across 6 categories with detailed performance metrics and human evaluation</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- See Demos Button moved above -->
+        <div class="see-demos-container">
+            <button class="see-demos-button" id="seeDemosButton">Check out the demos🔥</button>
+        </div>
+
+        <!-- Main filter buttons moved below -->
         <div class="filter-buttons">
             <button class="filter-button active" data-filter="all">All</button>
             <button class="filter-button" data-filter="benign">Benign</button>
@@ -471,8 +1177,9 @@
             <button class="filter-button" data-filter="extremism">Extremism</button>
         </div>
 
-        <!-- Add this after the main filter buttons -->
+        <!-- Sub-filter buttons -->
         <div class="sub-filter-container">
+            <!-- Sexual sub-filters -->
             <div class="sub-filter-buttons sexual-sub-filters" style="display: none;">
                 <button class="sub-filter-button active" data-filter="sexual-all">All</button>
                 <button class="sub-filter-button" data-filter="sexual-evident">Evident</button>
@@ -480,36 +1187,35 @@
                 <button class="sub-filter-button" data-filter="sexual-implication">Implication</button>
                 <button class="sub-filter-button" data-filter="sexual-hentai">Hentai</button>
             </div>
+
+            <!-- Abuse sub-filters -->
             <div class="sub-filter-buttons abuse-sub-filters" style="display: none;">
-                <button class="sub-filter-button" data-filter="abuse-all">All</button>
+                <button class="sub-filter-button active" data-filter="abuse-all">All</button>
                 <button class="sub-filter-button" data-filter="abuse-animal">Animal Abuse</button>
                 <button class="sub-filter-button" data-filter="abuse-campus">Campus Bullying</button>
                 <button class="sub-filter-button" data-filter="abuse-child">Child Abuse</button>
-                <button class="sub-filter-button" data-filter="abuse-sexual">Sexual Harassment</button>
+                <button class="sub-filter-button" data-filter="abuse-sexual">Sexual Abuse</button>
             </div>
+
+            <!-- Violence sub-filters -->
             <div class="sub-filter-buttons violence-sub-filters" style="display: none;">
                 <button class="sub-filter-button active" data-filter="violence-all">All</button>
+                <button class="sub-filter-button" data-filter="violence-assault">Assault</button>
                 <button class="sub-filter-button" data-filter="violence-fighting">Fighting</button>
                 <button class="sub-filter-button" data-filter="violence-shooting">Shooting</button>
-                <button class="sub-filter-button" data-filter="violence-assault">Assault</button>
-                <button class="sub-filter-button" data-filter="violence-vandalism">Vandalism</button>
                 <button class="sub-filter-button" data-filter="violence-sexual-violence">Sexual Violence</button>
+                <button class="sub-filter-button" data-filter="violence-vandalism">Vandalism</button>
             </div>
-            <div class="sub-filter-buttons misinformation-sub-filters" style="display: none;">
-                <button class="sub-filter-button active" data-filter="misinformation-all">All</button>
-                <button class="sub-filter-button" data-filter="misinformation-general">Misinformation</button>
-                <button class="sub-filter-button" data-filter="misinformation-outofdate">Out-of-date</button>
-                <button class="sub-filter-button" data-filter="misinformation-staging">Staging</button>
-                <button class="sub-filter-button" data-filter="misinformation-aigc">AIGC</button>
-            </div>
+
+            <!-- Illegal sub-filters -->
             <div class="sub-filter-buttons illegal-sub-filters" style="display: none;">
                 <button class="sub-filter-button active" data-filter="illegal-all">All</button>
                 <button class="sub-filter-button" data-filter="illegal-robbery">Robbery</button>
-                <button class="sub-filter-button" data-filter="illegal-stealing">Stealing</button>
-                <button class="sub-filter-button" data-filter="illegal-arson-explosion">Arson & Explosion</button>
-                <button class="sub-filter-button" data-filter="illegal-drug">Drug</button>
-                <button class="sub-filter-button" data-filter="illegal-war-scene">War Scene</button>
+                <button class="sub-filter-button" data-filter="illegal-shoplifting">Shoplifting</button>
+                <button class="sub-filter-button" data-filter="illegal-war">War Scenes</button>
             </div>
+
+            <!-- Extremism sub-filters -->
             <div class="sub-filter-buttons extremism-sub-filters" style="display: none;">
                 <button class="sub-filter-button active" data-filter="extremism-all">All</button>
                 <button class="sub-filter-button" data-filter="extremism-selfharm">Self-harm</button>
@@ -517,855 +1223,517 @@
                 <button class="sub-filter-button" data-filter="extremism-antisocial">Anti-social</button>
                 <button class="sub-filter-button" data-filter="extremism-depression">Depression</button>
             </div>
+
+            <!-- Misinformation sub-filters -->
+            <div class="sub-filter-buttons misinformation-sub-filters" style="display: none;">
+                <button class="sub-filter-button active" data-filter="misinformation-all">All</button>
+                <button class="sub-filter-button" data-filter="misinformation-acting">Acting</button>
+                <button class="sub-filter-button" data-filter="misinformation-deepfake">Deepfake</button>
+                <button class="sub-filter-button" data-filter="misinformation-misinformation">Misinformation</button>
+                <button class="sub-filter-button" data-filter="misinformation-out-of-date">Out-of-date</button>
+            </div>
         </div>
 
-        <div id="grid-container">
-            <div class="video-grid">
-                <!-- Sexual: Evident videos -->
-                <div class="video-item sexual sexual-evident">
-                    <div class="flag flag-sexual-evident">Sexual: Evident</div>
-                    <video src="video/sexual/evident/1.mp4" playsinline muted loop poster="video/sexual/evident/1_poster.jpg">
-                        <source src="video/sexual/evident/1.webm" type="video/webm">
-                        <source src="video/sexual/evident/1.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                    <div class="video-caption">
-                        <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                        <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Sexual Content"></span></p>
-                        <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                    </div>
-                </div>
-                <div class="video-item sexual sexual-evident">
-                    <div class="flag flag-sexual-evident">Sexual: Evident</div>
-                    <video src="video/sexual/evident/2.mp4" playsinline muted loop poster="video/sexual/evident/2_poster.jpg">
-                        <source src="video/sexual/evident/2.webm" type="video/webm">
-                        <source src="video/sexual/evident/2.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                    <div class="video-caption">
-                        <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                        <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Sexual Content"></span></p>
-                        <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                    </div>
-                </div>
-                <!-- <div class="video-item sexual sexual-evident">
-                    <div class="flag flag-sexual-evident">Sexual: Evident</div>
-                    <video src="video/sexual/evident/3.mp4" playsinline muted loop poster="video/sexual/evident/3_poster.jpg">
-                        <source src="video/sexual/evident/3.webm" type="video/webm">
-                        <source src="video/sexual/evident/3.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                    <div class="video-caption">
-                        <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                        <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Sexual Content"></span></p>
-                        <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                    </div>
-                </div> -->
-                <!-- <div class="video-item sexual sexual-evident">
-                    <div class="flag flag-sexual-evident">Sexual: Evident</div>
-                    <video src="video/sexual/evident/4.mp4" playsinline muted loop poster="video/sexual/evident/4_poster.jpg">
-                        <source src="video/sexual/evident/4.webm" type="video/webm">
-                        <source src="video/sexual/evident/4.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                    <div class="video-caption">
-                        <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                        <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Sexual Content"></span></p>
-                        <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                    </div>
-                </div> -->
-                <!-- Add more evident videos as needed -->
+        <!-- Video grid with more videos -->
+        <div class="video-module">
+            <div class="video-container">
+                <div id="video-section">
+                    <div class="video-grid">
+                        <div class="grid-sizer"></div>
+                        <!-- Sexual: Evident videos -->
+                        <div class="video-item sexual sexual-evident">
+                            <div class="flag flag-sexual-evident">Sexual: Evident</div>
+                            <video src="video/sexual/evident/1.mp4" playsinline muted loop>
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="video-caption">
+                                <p><strong>Description: </strong>Test video 1</p>
+                                <p><strong>Guardrail: </strong>Sexual Content</p>
+                                <p><strong>Explanation: </strong>Test explanation</p>
+                            </div>
+                        </div>
 
-                <!-- Sexual: Subtle videos -->
-                <div class="video-item sexual sexual-subtle">
-                    <div class="flag flag-sexual-subtle">Sexual: Subtle</div>
-                    <video src="video/sexual/subtle/1.mp4" playsinline muted loop poster="video/sexual/subtle/1_poster.jpg">
-                        <source src="video/sexual/subtle/1.webm" type="video/webm">
-                        <source src="video/sexual/subtle/1.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                    <div class="video-caption">
-                        <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                        <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Sexual Content"></span></p>
-                        <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                    </div>
-                </div>
-                <!-- <div class="video-item sexual sexual-subtle">
-                    <div class="flag flag-sexual-subtle">Sexual: Subtle</div>
-                    <video src="video/sexual/subtle/2.mp4" playsinline muted loop poster="video/sexual/subtle/2_poster.jpg">
-                        <source src="video/sexual/subtle/2.webm" type="video/webm">
-                        <source src="video/sexual/subtle/2.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                    <div class="video-caption">
-                        <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                        <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Sexual Content"></span></p>
-                        <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                    </div>
-                </div> -->
-                <!-- <div class="video-item sexual sexual-subtle">
-                    <div class="flag flag-sexual-subtle">Sexual: Subtle</div>
-                    <video src="video/sexual/subtle/3.mp4" playsinline muted loop poster="video/sexual/subtle/3_poster.jpg">
-                        <source src="video/sexual/subtle/3.webm" type="video/webm">
-                        <source src="video/sexual/subtle/3.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                    <div class="video-caption">
-                        <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                        <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Sexual Content"></span></p>
-                        <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                    </div>
-                </div> -->
-                <!-- <div class="video-item sexual sexual-subtle">
-                    <div class="flag flag-sexual-subtle">Sexual: Subtle</div>
-                    <video src="video/sexual/subtle/4.mp4" playsinline muted loop poster="video/sexual/subtle/4_poster.jpg">
-                        <source src="video/sexual/subtle/4.webm" type="video/webm">
-                        <source src="video/sexual/subtle/4.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                    <div class="video-caption">
-                        <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                        <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Sexual Content"></span></p>
-                        <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                    </div>
-                </div> -->
-                <!-- <div class="video-item sexual sexual-subtle">
-                    <div class="flag flag-sexual-subtle">Sexual: Subtle</div>
-                    <video src="video/sexual/subtle/5.mp4" playsinline muted loop poster="video/sexual/subtle/5_poster.jpg">
-                        <source src="video/sexual/subtle/5.webm" type="video/webm">
-                        <source src="video/sexual/subtle/5.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                    <div class="video-caption">
-                        <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                        <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Sexual Content"></span></p>
-                        <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                    </div>
-                </div> -->
-                <!-- Add more subtle videos as needed -->
+                        <!-- Add Sexual: Implication video -->
+                        <div class="video-item sexual sexual-implication">
+                            <div class="flag flag-sexual-implication">Sexual: Implication</div>
+                            <video src="video/sexual/implication/1.mp4" playsinline muted loop>
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="video-caption">
+                                <p><strong>Description: </strong>Implicit content</p>
+                                <p><strong>Guardrail: </strong>Sexual Content</p>
+                                <p><strong>Explanation: </strong>Content with suggestive themes</p>
+                            </div>
+                        </div>
 
-                <!-- Sexual: Implication videos -->
-                <div class="video-item sexual sexual-implication">
-                    <div class="flag flag-sexual-implication">Sexual: Implication</div>
-                    <video src="video/sexual/implication/1.mp4" playsinline muted loop poster="video/sexual/implication/1_poster.jpg">
-                        <source src="video/sexual/implication/1.webm" type="video/webm">
-                        <source src="video/sexual/implication/1.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                    <div class="video-caption">
-                        <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                        <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Sexual Content"></span></p>
-                        <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                    </div>
-                </div>
-                <!-- <div class="video-item sexual sexual-implication">
-                    <div class="flag flag-sexual-implication">Sexual: Implication</div>
-                    <video src="video/sexual/implication/2.mp4" playsinline muted loop poster="video/sexual/implication/2_poster.jpg">
-                        <source src="video/sexual/implication/2.webm" type="video/webm">
-                        <source src="video/sexual/implication/2.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                    <div class="video-caption">
-                        <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                        <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Sexual Content"></span></p>
-                        <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                    </div>
-                </div> -->
-                <!-- <div class="video-item sexual sexual-implication">
-                    <div class="flag flag-sexual-implication">Sexual: Implication</div>
-                    <video src="video/sexual/implication/3.mp4" playsinline muted loop poster="video/sexual/implication/3_poster.jpg">
-                        <source src="video/sexual/implication/3.webm" type="video/webm">
-                        <source src="video/sexual/implication/3.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                    <div class="video-caption">
-                        <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                        <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Sexual Content"></span></p>
-                        <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                    </div>
-                </div> -->
-                <!-- <div class="video-item sexual sexual-implication">
-                    <div class="flag flag-sexual-implication">Sexual: Implication</div>
-                    <video src="video/sexual/implication/4.mp4" playsinline muted loop poster="video/sexual/implication/4_poster.jpg">
-                        <source src="video/sexual/implication/4.webm" type="video/webm">
-                        <source src="video/sexual/implication/4.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                    <div class="video-caption">
-                        <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                        <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Sexual Content"></span></p>
-                        <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                    </div>
-                </div> -->
-                <!-- Add more implication videos as needed -->
+                        <!-- Add Sexual: Hentai video -->
+                        <div class="video-item sexual sexual-hentai">
+                            <div class="flag flag-sexual-hentai">Sexual: Hentai</div>
+                            <video src="video/sexual/hentai/1.mp4" playsinline muted loop>
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="video-caption">
+                                <p><strong>Description: </strong>Animated content</p>
+                                <p><strong>Guardrail: </strong>Sexual Content</p>
+                                <p><strong>Explanation: </strong>Animated adult content detected</p>
+                            </div>
+                        </div>
 
-                <!-- Sexual: Hentai videos -->
-                <!-- <div class="video-item sexual sexual-hentai">
-                    <div class="flag flag-sexual-hentai">Sexual: Hentai</div>
-                    <video src="video/sexual/hentai/1.mp4" playsinline muted loop poster="video/sexual/hentai/1_poster.jpg">
-                        <source src="video/sexual/hentai/1.webm" type="video/webm">
-                        <source src="video/sexual/hentai/1.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                    <div class="video-caption">
-                        <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                        <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Sexual Content"></span></p>
-                        <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                    </div>
-                </div> -->
-                <!-- <div class="video-item sexual sexual-hentai">
-                    <div class="flag flag-sexual-hentai">Sexual: Hentai</div>
-                    <video src="video/sexual/hentai/2.mp4" playsinline muted loop poster="video/sexual/hentai/2_poster.jpg">
-                        <source src="video/sexual/hentai/2.webm" type="video/webm">
-                        <source src="video/sexual/hentai/2.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                    <div class="video-caption">
-                        <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                        <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Sexual Content"></span></p>
-                        <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                    </div>
-                </div> -->
-                <!-- <div class="video-item sexual sexual-hentai">
-                    <div class="flag flag-sexual-hentai">Sexual: Hentai</div>
-                    <video src="video/sexual/hentai/3.mp4" playsinline muted loop poster="video/sexual/hentai/3_poster.jpg">
-                        <source src="video/sexual/hentai/3.webm" type="video/webm">
-                        <source src="video/sexual/hentai/3.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                    <div class="video-caption">
-                        <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                        <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Sexual Content"></span></p>
-                        <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                    </div>
-                </div> -->
+                        <!-- Sexual: Subtle videos -->
+                        <div class="video-item sexual sexual-subtle">
+                            <div class="flag flag-sexual-subtle">Sexual: Subtle</div>
+                            <video src="video/sexual/subtle/1.mp4" playsinline muted loop>
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="video-caption">
+                                <p><strong>Description: </strong>Test video</p>
+                                <p><strong>Guardrail: </strong>Sexual Content</p>
+                                <p><strong>Explanation: </strong>Test explanation</p>
+                            </div>
+                        </div>
 
-                <!-- Abuse: Animal Abuse videos -->
-                <div class="video-item abuse abuse-animal">
-                    <div class="flag flag-abuse-animal">Abuse: Animal Abuse</div>
-                    <video src="video/abuse/animal_abuse/1.mp4" playsinline muted loop poster="video/abuse/animal_abuse/1_poster.jpg">
-                        <source src="video/abuse/animal_abuse/1.webm" type="video/webm">
-                        <source src="video/abuse/animal_abuse/1.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                    <div class="video-caption">
-                        <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                        <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Abuse"></span></p>
-                        <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                    </div>
-                </div>
+                        <!-- Abuse videos with parallel structure -->
+                        <div class="video-item abuse abuse-animal">
+                            <div class="flag flag-abuse-animal">Abuse: Animal</div>
+                            <video src="video/abuse/animal_abuse/2.mp4" playsinline muted loop>
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="video-caption">
+                                <p><strong>Description: </strong>Animal abuse incident</p>
+                                <p><strong>Guardrail: </strong>Abuse</p>
+                                <p><strong>Explanation: </strong>Content showing harm to animals</p>
+                            </div>
+                        </div>
 
-                <!-- <div class="video-item abuse abuse-animal">
-                    <div class="flag flag-abuse-animal">Abuse: Animal Abuse</div>
-                    <video src="video/abuse/animal_abuse/2.mp4" playsinline muted loop poster="video/abuse/animal_abuse/2_poster.jpg">
-                        <source src="video/abuse/animal_abuse/2.webm" type="video/webm">
-                        <source src="video/abuse/animal_abuse/2.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                    <div class="video-caption">
-                        <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                        <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Abuse"></span></p>
-                        <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                    </div>
-                </div> -->
+                        <div class="video-item abuse abuse-campus">
+                            <div class="flag flag-abuse-campus">Abuse: Campus</div>
+                            <video src="video/abuse/campus_bully/1.mp4" playsinline muted loop>
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="video-caption">
+                                <p><strong>Description: </strong>Campus bullying incident</p>
+                                <p><strong>Guardrail: </strong>Abuse</p>
+                                <p><strong>Explanation: </strong>School-related harassment detected</p>
+                            </div>
+                        </div>
 
-                <!-- Abuse: Child Abuse videos -->
-                <div class="video-item abuse abuse-child">
-                    <div class="flag flag-abuse-child">Abuse: Child Abuse</div>
-                    <video src="video/abuse/child_abuse/1.mp4" playsinline muted loop poster="video/abuse/child_abuse/1_poster.jpg">
-                        <source src="video/abuse/child_abuse/1.webm" type="video/webm">
-                        <source src="video/abuse/child_abuse/1.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                    <div class="video-caption">
-                        <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                        <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Abuse"></span></p>
-                        <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                    </div>
-                </div>
+                        <div class="video-item abuse abuse-child">
+                            <div class="flag flag-abuse-child">Abuse: Child</div>
+                            <video src="video/abuse/child_abuse/1.mp4" playsinline muted loop>
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="video-caption">
+                                <p><strong>Description: </strong>Child abuse incident</p>
+                                <p><strong>Guardrail: </strong>Abuse</p>
+                                <p><strong>Explanation: </strong>Content involving harm to minors</p>
+                            </div>
+                        </div>
 
-                <!-- <div class="video-item abuse abuse-child">
-                    <div class="flag flag-abuse-child">Abuse: Child Abuse</div>
-                    <video src="video/abuse/child_abuse/2.mp4" playsinline muted loop poster="video/abuse/child_abuse/2_poster.jpg">
-                        <source src="video/abuse/child_abuse/2.webm" type="video/webm">
-                        <source src="video/abuse/child_abuse/2.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                    <div class="video-caption">
-                        <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                        <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Abuse"></span></p>
-                        <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                    </div>
-                </div>
+                        <div class="video-item abuse abuse-sexual">
+                            <div class="flag flag-abuse-sexual">Abuse: Sexual</div>
+                            <video src="video/abuse/sex_abuse/1.mp4" playsinline muted loop>
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="video-caption">
+                                <p><strong>Description: </strong>Sexual abuse incident</p>
+                                <p><strong>Guardrail: </strong>Abuse</p>
+                                <p><strong>Explanation: </strong>Sexual harassment or abuse detected</p>
+                            </div>
+                        </div>
 
-                <div class="video-item abuse abuse-child">
-                    <div class="flag flag-abuse-child">Abuse: Child Abuse</div>
-                    <video src="video/abuse/child_abuse/3.mp4" playsinline muted loop poster="video/abuse/child_abuse/3_poster.jpg">
-                        <source src="video/abuse/child_abuse/3.webm" type="video/webm">
-                        <source src="video/abuse/child_abuse/3.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                    <div class="video-caption">
-                        <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                        <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Abuse"></span></p>
-                        <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                    </div>
-                </div> -->
+                        <!-- Violence: Assault video -->
+                        <div class="video-item violence violence-assault">
+                            <div class="flag flag-violence-assault">Violence: Assault</div>
+                            <video src="video/violence/assault/1.mp4" playsinline muted loop>
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="video-caption">
+                                <p><strong>Description: </strong>Assault incident</p>
+                                <p><strong>Guardrail: </strong>Violence</p>
+                                <p><strong>Explanation: </strong>Physical attack detected</p>
+                            </div>
+                        </div>
 
-                <!-- Abuse: Campus Bullying videos -->
-                <div class="video-item abuse abuse-campus">
-                    <div class="flag flag-abuse-campus">Abuse: Campus Bullying</div>
-                    <video src="video/abuse/campus_bully/1.mp4" playsinline muted loop poster="video/abuse/campus_bully/1_poster.jpg">
-                        <source src="video/abuse/campus_bully/1.webm" type="video/webm">
-                        <source src="video/abuse/campus_bully/1.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                    <div class="video-caption">
-                        <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                        <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Abuse"></span></p>
-                        <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                    </div>
-                </div>
+                        <!-- Violence: Fighting video -->
+                        <div class="video-item violence violence-fighting">
+                            <div class="flag flag-violence-fighting">Violence: Fighting</div>
+                            <video src="video/violence/fighting/1.mp4" playsinline muted loop>
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="video-caption">
+                                <p><strong>Description: </strong>Fighting incident</p>
+                                <p><strong>Guardrail: </strong>Violence</p>
+                                <p><strong>Explanation: </strong>Physical altercation detected</p>
+                            </div>
+                        </div>
 
-                <!-- <div class="video-item abuse abuse-campus">
-                    <div class="flag flag-abuse-campus">Abuse: Campus Bullying</div>
-                    <video src="video/abuse/campus_bully/2.mp4" playsinline muted loop poster="video/abuse/campus_bully/2_poster.jpg">
-                        <source src="video/abuse/campus_bully/2.webm" type="video/webm">
-                        <source src="video/abuse/campus_bully/2.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                    <div class="video-caption">
-                        <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                        <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Abuse"></span></p>
-                        <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                    </div>
-                </div> -->
+                        <!-- Violence: Shooting video -->
+                        <div class="video-item violence violence-shooting">
+                            <div class="flag flag-violence-shooting">Violence: Shooting</div>
+                            <video src="video/violence/shooting/1.mp4" playsinline muted loop>
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="video-caption">
+                                <p><strong>Description: </strong>Shooting incident</p>
+                                <p><strong>Guardrail: </strong>Violence</p>
+                                <p><strong>Explanation: </strong>Gun violence detected</p>
+                            </div>
+                        </div>
 
-                <!-- <div class="video-item abuse abuse-sexual">
-                    <div class="flag flag-abuse-sexual">Abuse: Sexual Harassment</div>
-                    <video src="video/abuse/sex_abuse/2.mp4" playsinline muted loop poster="video/abuse/sex_abuse/2_poster.jpg">
-                        <source src="video/abuse/sex_abuse/2.webm" type="video/webm">
-                        <source src="video/abuse/sex_abuse/2.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                    <div class="video-caption">
-                        <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                        <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Abuse"></span></p>
-                        <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                    </div>
-                </div>
+                        <!-- Violence: Sexual Violence video -->
+                        <div class="video-item violence violence-sexual-violence">
+                            <div class="flag flag-violence-sexual-violence">Violence: Sexual Violence</div>
+                            <video src="video/violence/sexual_violence/1.mp4" playsinline muted loop>
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="video-caption">
+                                <p><strong>Description: </strong>Sexual violence incident</p>
+                                <p><strong>Guardrail: </strong>Violence</p>
+                                <p><strong>Explanation: </strong>Sexual assault detected</p>
+                            </div>
+                        </div>
 
-                <div class="video-item abuse abuse-sexual">
-                    <div class="flag flag-abuse-sexual">Abuse: Sexual Harassment</div>
-                    <video src="video/abuse/sex_abuse/1.mp4" playsinline muted loop poster="video/abuse/sex_abuse/1_poster.jpg">
-                        <source src="video/abuse/sex_abuse/1.webm" type="video/webm">
-                        <source src="video/abuse/sex_abuse/1.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                    <div class="video-caption">
-                        <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                        <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Abuse"></span></p>
-                        <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                    </div>
-                </div> -->
+                        <!-- Violence: Vandalism video -->
+                        <div class="video-item violence violence-vandalism">
+                            <div class="flag flag-violence-vandalism">Violence: Vandalism</div>
+                            <video src="video/violence/vandalism/1.mp4" playsinline muted loop>
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="video-caption">
+                                <p><strong>Description: </strong>Vandalism incident</p>
+                                <p><strong>Guardrail: </strong>Violence</p>
+                                <p><strong>Explanation: </strong>Property damage detected</p>
+                            </div>
+                        </div>
 
-                <!-- <div class="video-item abuse abuse-sexual">
-                    <div class="flag flag-abuse-sexual">Abuse: Sexual Harassment</div>
-                    <video src="video/abuse/sex_abuse/3.mp4" playsinline muted loop poster="video/abuse/sex_abuse/3_poster.jpg">
-                        <source src="video/abuse/sex_abuse/3.webm" type="video/webm">
-                        <source src="video/abuse/sex_abuse/3.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                    <div class="video-caption">
-                        <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                        <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Abuse"></span></p>
-                        <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                    </div>
-                </div>
+                        <!-- Illegal: Robbery video -->
+                        <div class="video-item illegal illegal-robbery">
+                            <div class="flag flag-illegal-robbery">Illegal: Robbery</div>
+                            <video src="video/illegal/robbery/1.mp4" playsinline muted loop>
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="video-caption">
+                                <p><strong>Description: </strong>Robbery incident</p>
+                                <p><strong>Guardrail: </strong>Illegal Activity</p>
+                                <p><strong>Explanation: </strong>Armed robbery detected</p>
+                            </div>
+                        </div>
 
-                <div class="video-item abuse abuse-sexual">
-                    <div class="flag flag-abuse-sexual">Abuse: Sexual Harassment</div>
-                    <video src="video/abuse/sex_abuse/4.mp4" playsinline muted loop poster="video/abuse/sex_abuse/4_poster.jpg">
-                        <source src="video/abuse/sex_abuse/4.webm" type="video/webm">
-                        <source src="video/abuse/sex_abuse/4.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                    <div class="video-caption">
-                        <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                        <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Abuse"></span></p>
-                        <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                    </div>
-                </div> -->
+                        <!-- Illegal: Shoplifting video -->
+                        <div class="video-item illegal illegal-shoplifting">
+                            <div class="flag flag-illegal-shoplifting">Illegal: Shoplifting</div>
+                            <video src="video/illegal/shoplifting/1.mp4" playsinline muted loop>
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="video-caption">
+                                <p><strong>Description: </strong>Shoplifting incident</p>
+                                <p><strong>Guardrail: </strong>Illegal Activity</p>
+                                <p><strong>Explanation: </strong>Retail theft detected</p>
+                            </div>
+                        </div>
 
-                <!-- Violence: Fighting videos -->
-                <div class="video-item violence violence-fighting">
-                    <div class="flag flag-violence-fighting">Violence: Fighting</div>
-                    <video src="video/violence/fighting/1.mp4" playsinline muted loop poster="video/violence/fighting/1_poster.jpg">
-                        <source src="video/violence/fighting/1.webm" type="video/webm">
-                        <source src="video/violence/fighting/1.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                    <div class="video-caption">
-                        <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                        <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Violence"></span></p>
-                        <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                    </div>
-                </div>
+                        <!-- Illegal: War Scenes video -->
+                        <div class="video-item illegal illegal-war">
+                            <div class="flag flag-illegal-war">Illegal: War Scenes</div>
+                            <video src="video/illegal/war/1.mp4" playsinline muted loop>
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="video-caption">
+                                <p><strong>Description: </strong>War scene footage</p>
+                                <p><strong>Guardrail: </strong>Illegal Activity</p>
+                                <p><strong>Explanation: </strong>Military conflict detected</p>
+                            </div>
+                        </div>
 
-            <!-- <div class="video-item violence violence-fighting">
-                <div class="flag flag-violence-fighting">Violence: Fighting</div>
-                <video src="video/violence/fighting/2.mp4" playsinline muted loop poster="video/violence/fighting/2_poster.jpg">
-                    <source src="video/violence/fighting/2.webm" type="video/webm">
-                    <source src="video/violence/fighting/2.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <div class="video-caption">
-                    <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                    <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Violence"></span></p>
-                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
+                        <!-- Extremism: Self-harm video -->
+                        <div class="video-item extremism extremism-selfharm">
+                            <div class="flag flag-extremism-selfharm">Extremism: Self-harm</div>
+                            <video src="video/extremism/selfharm/1.mp4" playsinline muted loop>
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="video-caption">
+                                <p><strong>Description: </strong>Self-harm incident</p>
+                                <p><strong>Guardrail: </strong>Extremism</p>
+                                <p><strong>Explanation: </strong>Self-injurious behavior detected</p>
+                            </div>
+                        </div>
+
+                        <!-- Extremism: Disturbing video -->
+                        <div class="video-item extremism extremism-disturbing">
+                            <div class="flag flag-extremism-disturbing">Extremism: Disturbing</div>
+                            <video src="video/extremism/disturbing/1.mp4" playsinline muted loop>
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="video-caption">
+                                <p><strong>Description: </strong>Disturbing content</p>
+                                <p><strong>Guardrail: </strong>Extremism</p>
+                                <p><strong>Explanation: </strong>Disturbing imagery detected</p>
+                            </div>
+                        </div>
+
+                        <!-- Extremism: Anti-social video -->
+                        <div class="video-item extremism extremism-antisocial">
+                            <div class="flag flag-extremism-antisocial">Extremism: Anti-social</div>
+                            <video src="video/extremism/antisocial/1.mp4" playsinline muted loop>
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="video-caption">
+                                <p><strong>Description: </strong>Anti-social behavior</p>
+                                <p><strong>Guardrail: </strong>Extremism</p>
+                                <p><strong>Explanation: </strong>Anti-social conduct detected</p>
+                            </div>
+                        </div>
+
+                        <!-- Extremism: Depression video -->
+                        <div class="video-item extremism extremism-depression">
+                            <div class="flag flag-extremism-depression">Extremism: Depression</div>
+                            <video src="video/extremism/depression/1.mp4" playsinline muted loop>
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="video-caption">
+                                <p><strong>Description: </strong>Depression-related content</p>
+                                <p><strong>Guardrail: </strong>Extremism</p>
+                                <p><strong>Explanation: </strong>Depressive themes detected</p>
+                            </div>
+                        </div>
+
+                        <!-- Misinformation: Acting video -->
+                        <div class="video-item misinformation misinformation-acting">
+                            <div class="flag flag-misinformation-acting">Misinformation: Acting</div>
+                            <video src="video/misinformation/Acting/1.mp4" playsinline muted loop>
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="video-caption">
+                                <p><strong>Description: </strong>Acting scene</p>
+                                <p><strong>Guardrail: </strong>Misinformation</p>
+                                <p><strong>Explanation: </strong>Staged content detected</p>
+                            </div>
+                        </div>
+
+                        <!-- Misinformation: Deepfake video -->
+                        <div class="video-item misinformation misinformation-deepfake">
+                            <div class="flag flag-misinformation-deepfake">Misinformation: Deepfake</div>
+                            <video src="video/misinformation/Deepfake/1.mp4" playsinline muted loop>
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="video-caption">
+                                <p><strong>Description: </strong>Deepfake content</p>
+                                <p><strong>Guardrail: </strong>Misinformation</p>
+                                <p><strong>Explanation: </strong>AI-generated content detected</p>
+                            </div>
+                        </div>
+
+                        <!-- Misinformation: Misinformation video -->
+                        <div class="video-item misinformation misinformation-misinformation">
+                            <div class="flag flag-misinformation-misinformation">Misinformation: Misinformation</div>
+                            <video src="video/misinformation/Misinformation/1.mp4" playsinline muted loop>
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="video-caption">
+                                <p><strong>Description: </strong>Misleading information</p>
+                                <p><strong>Guardrail: </strong>Misinformation</p>
+                                <p><strong>Explanation: </strong>False information detected</p>
+                            </div>
+                        </div>
+
+                        <!-- Misinformation: Out-of-date video -->
+                        <div class="video-item misinformation misinformation-out-of-date">
+                            <div class="flag flag-misinformation-out-of-date">Misinformation: Out-of-date</div>
+                            <video src="video/misinformation/Out-of-date/1.mp4" playsinline muted loop>
+                                Your browser does not support the video tag.
+                            </video>
+                            <div class="video-caption">
+                                <p><strong>Description: </strong>Outdated content</p>
+                                <p><strong>Guardrail: </strong>Misinformation</p>
+                                <p><strong>Explanation: </strong>Old information detected</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </div>
 
-            <div class="video-item violence violence-fighting">
-                <div class="flag flag-violence-fighting">Violence: Fighting</div>
-                <video src="video/violence/fighting/3.mp4" playsinline muted loop poster="video/violence/fighting/3_poster.jpg">
-                    <source src="video/violence/fighting/3.webm" type="video/webm">
-                    <source src="video/violence/fighting/3.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <div class="video-caption">
-                    <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                    <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Violence"></span></p>
-                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                </div>
-            </div> -->
-
-            <!-- Violence: Shooting videos -->
-            <div class="video-item violence violence-shooting">
-                <div class="flag flag-violence-shooting">Violence: Shooting</div>
-                <video src="video/violence/shooting/1.mp4" playsinline muted loop poster="video/violence/shooting/1_poster.jpg">
-                    <source src="video/violence/shooting/1.webm" type="video/webm">
-                    <source src="video/violence/shooting/1.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <div class="video-caption">
-                    <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                    <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Violence"></span></p>
-                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
+        <!-- Dataset Section (part of video module, always visible) -->
+        <div class="dataset-info">
+            <div class="centered-title">SafeWatch-Bench Dataset</div>
+            <div class="image-container">
+                <img src="figures/dataset.png" alt="SafeWatch-Bench Dataset">
+                <div class="caption">
+                    SAFEWATCH-BENCH dataset contains 2M videos split into Real and GenAI subsets. The Real subset 
+                    contains challenging videos from real-world scenarios, while the GenAI subset contains videos 
+                    generated by various SOTA models. Each video is annotated with multi-label guardrail labels and 
+                    in-depth explanations using our pipeline.
                 </div>
             </div>
+        </div>
+    </div>
 
-
-            <!-- Violence: Assault videos -->
-            <!-- <div class="video-item violence violence-assault">
-                <div class="flag flag-violence-assault">Violence: Assault</div>
-                <video src="video/violence/assault/1.mp4" playsinline muted loop poster="video/violence/assault/1_poster.jpg">
-                    <source src="video/violence/assault/1.webm" type="video/webm">
-                    <source src="video/violence/assault/1.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <div class="video-caption">
-                    <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                    <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Violence"></span></p>
-                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                </div>
+    <!-- Method Section (separate section) -->
+    <div class="method-section">
+        <div class="centered-title">SafeWatch Model Architecture</div>
+        <div class="image-container">
+            <img src="figures/model.png" alt="SafeWatch Method Overview">
+            <div class="caption">
+                Our SafeWatch framework consists of six comprehensive safety categories, each covering multiple 
+                fine-grained risk subcategories. The framework is designed to handle both real-world scenarios 
+                (C1-C3) and emerging threats (C4-C6):
+                <br><br>
+                 C1 Sexual Content: Evident, Subtle, Implication, Hentai
+                <br>
+                • C2 Abuse: Animal Abuse, Campus Bullying, Child Abuse, Sexual Harassment
+                <br>
+                • C3 Violence: Fighting, Shooting, Assault, Vandalism, Sexual Violence
+                <br>
+                • C4 Misinformation: General, Out-of-date, Staging, AIGC
+                <br>
+                • C5 Illegal: Robbery, Stealing, Arson & Explosion, Drug, War Scene
+                <br>
+                • C6 Extremism: Self-harm, Disturbing, Anti-social, Depression
             </div>
-
-            <div class="video-item violence violence-assault">
-                <div class="flag flag-violence-assault">Violence: Assault</div>
-                <video src="video/violence/assault/2.mp4" playsinline muted loop poster="video/violence/assault/2_poster.jpg">
-                    <source src="video/violence/assault/2.webm" type="video/webm">
-                    <source src="video/violence/assault/2.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <div class="video-caption">
-                    <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                    <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Violence"></span></p>
-                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                </div>
-            </div> -->
-
-            <!-- Violence: Vandalism videos -->
-            <!-- <div class="video-item violence violence-vandalism">
-                <div class="flag flag-violence-vandalism">Violence: Vandalism</div>
-                <video src="video/violence/vandalism/1.mp4" playsinline muted loop poster="video/violence/vandalism/1_poster.jpg">
-                    <source src="video/violence/vandalism/1.webm" type="video/webm">
-                    <source src="video/violence/vandalism/1.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <div class="video-caption">
-                    <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                    <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Violence"></span></p>
-                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                </div>
-            </div> -->
+        </div>
+    </div>
 
 
-            <!-- Violence: Sexual Violence videos -->
-            <div class="video-item violence violence-sexual-violence">
-                <div class="flag flag-violence-sexual-violence">Violence: Sexual Violence</div>
-                <video src="video/violence/sexual_violence/1.mp4" playsinline muted loop poster="video/violence/sexual_violence/1_poster.jpg">
-                    <source src="video/violence/sexual_violence/1.webm" type="video/webm">
-                    <source src="video/violence/sexual_violence/1.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <div class="video-caption">
-                    <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                    <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Violence"></span></p>
-                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                </div>
+    <!-- Data Curation Section (separate section) -->
+    <div class="data-curation-section">
+        <div class="centered-title">Data Curation and Training Pipeline</div>
+        <div class="image-container">
+            <img src="figures/pipeline.png" alt="Pipeline">
+            <div class="caption">
+                Our SafeWatch framework consists of six comprehensive safety categories, each covering multiple 
+                fine-grained risk subcategories. The framework is designed to handle both real-world scenarios 
+                (C1-C3) and emerging threats (C4-C6):
+                <br><br>
+                 C1 Sexual Content: Evident, Subtle, Implication, Hentai
+                <br>
+                • C2 Abuse: Animal Abuse, Campus Bullying, Child Abuse, Sexual Harassment
+                <br>
+                • C3 Violence: Fighting, Shooting, Assault, Vandalism, Sexual Violence
+                <br>
+                • C4 Misinformation: General, Out-of-date, Staging, AIGC
+                <br>
+                • C5 Illegal: Robbery, Stealing, Arson & Explosion, Drug, War Scene
+                <br>
+                • C6 Extremism: Self-harm, Disturbing, Anti-social, Depression
             </div>
+        </div>
+    </div>
 
-            <!-- <div class="video-item violence violence-sexual-violence">
-                <div class="flag flag-violence-sexual-violence">Violence: Sexual Violence</div>
-                <video src="video/violence/sexual_violence/2.mp4" playsinline muted loop poster="video/violence/sexual_violence/2_poster.jpg">
-                    <source src="video/violence/sexual_violence/2.webm" type="video/webm">
-                    <source src="video/violence/sexual_violence/2.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <div class="video-caption">
-                    <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                    <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Violence"></span></p>
-                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                </div>
-            </div> -->
 
-            <!-- Illegal: Robbery videos -->
-            <!-- <div class="video-item illegal illegal-robbery">
-                <div class="flag flag-illegal-robbery">Illegal: Robbery</div>
-                <video src="video/illegal/robbery/1.mp4" playsinline muted loop poster="video/illegal/robbery/1_poster.jpg">
-                    <source src="video/illegal/robbery/1.webm" type="video/webm">
-                    <source src="video/illegal/robbery/1.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <div class="video-caption">
-                    <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                    <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Illegal"></span></p>
-                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                </div>
-            </div> -->
-
-            <!-- Illegal: Stealing videos -->
-            <div class="video-item illegal illegal-stealing">
-                <div class="flag flag-illegal-stealing">Illegal: Stealing</div>
-                <video src="video/illegal/shoplifting/1.mp4" playsinline muted loop poster="video/illegal/shoplifting/1_poster.jpg">
-                    <source src="video/illegal/shoplifting/1.webm" type="video/webm">
-                    <source src="video/illegal/shoplifting/1.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <div class="video-caption">
-                    <p><strong>Description: </strong> <span class="stream-text" data-text="Ants tunneling under mo tunneling under  tunneling under  tunneling under ss."></span></p>
-                    <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Illegal"></span></p>
-                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="No violation detected."></span></p>
-                </div>
+    <!-- Add this HTML for the custom modal -->
+    <div id="customModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>⚠️ Content Warning</h2>
             </div>
-
-            <!-- Illegal: War Scenes videos -->
-            <div class="video-item illegal illegal-war-scene">
-                <div class="flag flag-illegal-war-scene">Illegal: War Scene</div>
-                <video src="video/illegal/war/1.mp4" playsinline muted loop poster="video/illegal/war/1_poster.jpg">
-                    <source src="video/illegal/war/1.webm" type="video/webm">
-                    <source src="video/illegal/war/1.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <div class="video-caption">
-                    <p><strong>Description: </strong> <span class="stream-text" data-text="War scene video description."></span></p>
-                    <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Illegal"></span></p>
-                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="Content related to war scenes detected."></span></p>
-                </div>
+            <div class="modal-body">
+                <p>Warning: The content you are about to view may be sensitive. Do you wish to proceed?</p>
+                <label class="consent-label">
+                    <input type="checkbox" id="consentCheckbox">
+                    I acknowledge that I may be exposed to sensitive content and accept responsibility for this choice.
+                </label>
             </div>
-
-            <!-- Extremism: Self-harm videos -->
-            <div class="video-item extremism extremism-selfharm">
-                <div class="flag flag-extremism-selfharm">Extremism: Self-harm</div>
-                <video src="video/extremism/selfharm/1.mp4" playsinline muted loop poster="video/extremism/selfharm/1_poster.jpg">
-                    <source src="video/extremism/selfharm/1.webm" type="video/webm">
-                    <source src="video/extremism/selfharm/1.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <div class="video-caption">
-                    <p><strong>Description: </strong> <span class="stream-text" data-text="Placeholder description for self-harm video."></span></p>
-                    <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Extremism"></span></p>
-                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="Content related to self-harm detected."></span></p>
-                </div>
+            <div class="modal-footer">
+                <button class="modal-button cancel-btn">Cancel</button>
+                <button class="modal-button confirm-btn" id="proceedButton" disabled>Proceed</button>
             </div>
+        </div>
+    </div>
 
-            <!-- Extremism: Disturbing videos -->
-            <div class="video-item extremism extremism-disturbing">
-                <div class="flag flag-extremism-disturbing">Extremism: Disturbing</div>
-                <video src="video/extremism/disturbing/1.mp4" playsinline muted loop poster="video/extremism/disturbing/1_poster.jpg">
-                    <source src="video/extremism/disturbing/1.webm" type="video/webm">
-                    <source src="video/extremism/disturbing/1.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <div class="video-caption">
-                    <p><strong>Description: </strong> <span class="stream-text" data-text="Placeholder description for disturbing video."></span></p>
-                    <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Extremism"></span></p>
-                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="Content related to disturbing behavior detected."></span></p>
-                </div>
-            </div>
-
-            <!-- Extremism: Depression videos -->
-            <div class="video-item extremism extremism-depression">
-                <div class="flag flag-extremism-depression">Extremism: Depression</div>
-                <video src="video/extremism/depression/1.mp4" playsinline muted loop poster="video/extremism/depression/1_poster.jpg">
-                    <source src="video/extremism/depression/1.webm" type="video/webm">
-                    <source src="video/extremism/depression/1.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
-                <div class="video-caption">
-                    <p><strong>Description: </strong> <span class="stream-text" data-text="Placeholder description for depression video."></span></p>
-                    <p><strong>Guardrail: </strong> <span class="stream-text" data-text="Extremism"></span></p>
-                    <p><strong>Explanation: </strong> <span class="stream-text" data-text="Content related to depression detected."></span></p>
-                </div>
-            </div>
-
-    <script src="https://cdn.gradio.app/latest/gradio.js"></script>
-    <script>
-        // Gradio interface setup (as in the previous example)
-    </script>
-    <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
-    <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            const seeDemosButton = document.getElementById('seeDemosButton');
+            const videoSection = document.getElementById('video-section');
+            const videos = document.querySelectorAll('.video-item video');
             const filterButtons = document.querySelectorAll('.filter-button');
             const subFilterContainer = document.querySelector('.sub-filter-container');
             const subFilterButtons = document.querySelectorAll('.sub-filter-button');
-            const originalGrid = document.querySelector('.video-grid');
+            const videoItems = document.querySelectorAll('.video-item');
+            const consentCheckbox = document.getElementById('consentCheckbox');
+            const proceedButton = document.getElementById('proceedButton');
 
-            // Create separate grids for each filter
-            const allGrid = originalGrid.cloneNode(true);
-            allGrid.id = 'all-grid';
-            const benignGrid = originalGrid.cloneNode(true);
-            benignGrid.id = 'benign-grid';
-            const sexualGrid = originalGrid.cloneNode(true);
-            sexualGrid.id = 'sexual-grid';
-            const sexualEvidentGrid = originalGrid.cloneNode(true);
-            sexualEvidentGrid.id = 'sexual-evident-grid';
-            const sexualSubtleGrid = originalGrid.cloneNode(true);
-            sexualSubtleGrid.id = 'sexual-subtle-grid';
-            const sexualImplicationGrid = originalGrid.cloneNode(true);
-            sexualImplicationGrid.id = 'sexual-implication-grid';
-
-            // Add this new grid for hentai videos
-            const sexualHentaiGrid = originalGrid.cloneNode(true);
-            sexualHentaiGrid.id = 'sexual-hentai-grid';
-
-            // Add new grids for abuse categories
-            const abuseGrid = originalGrid.cloneNode(true);
-            abuseGrid.id = 'abuse-grid';
-            const abuseAnimalGrid = originalGrid.cloneNode(true);
-            abuseAnimalGrid.id = 'abuse-animal-grid';
-            const abuseCampusGrid = originalGrid.cloneNode(true);
-            abuseCampusGrid.id = 'abuse-campus-grid';
-            const abuseChildGrid = originalGrid.cloneNode(true);
-            abuseChildGrid.id = 'abuse-child-grid';
-            const abuseSexualGrid = originalGrid.cloneNode(true);
-            abuseSexualGrid.id = 'abuse-sexual-grid';
-
-            // Add this new grid for violence videos
-            const violenceGrid = originalGrid.cloneNode(true);
-            violenceGrid.id = 'violence-grid';
-            const violenceFightingGrid = originalGrid.cloneNode(true);
-            violenceFightingGrid.id = 'violence-fighting-grid';
-            const violenceShootingGrid = originalGrid.cloneNode(true);
-            violenceShootingGrid.id = 'violence-shooting-grid';
-            const violenceAssaultGrid = originalGrid.cloneNode(true);
-            violenceAssaultGrid.id = 'violence-assault-grid';
-            const violenceVandalismGrid = originalGrid.cloneNode(true);
-            violenceVandalismGrid.id = 'violence-vandalism-grid';
-            const violenceSexualViolenceGrid = originalGrid.cloneNode(true);
-            violenceSexualViolenceGrid.id = 'violence-sexual-violence-grid';
-
-            // Add these new grids for misinformation subcategories
-            const misinformationGrid = originalGrid.cloneNode(true);
-            misinformationGrid.id = 'misinformation-grid';
-            const misinformationGeneralGrid = originalGrid.cloneNode(true);
-            misinformationGeneralGrid.id = 'misinformation-general-grid';
-            const misinformationOutofdateGrid = originalGrid.cloneNode(true);
-            misinformationOutofdateGrid.id = 'misinformation-outofdate-grid';
-            const misinformationStagingGrid = originalGrid.cloneNode(true);
-            misinformationStagingGrid.id = 'misinformation-staging-grid';
-            const misinformationAigcGrid = originalGrid.cloneNode(true);
-            misinformationAigcGrid.id = 'misinformation-aigc-grid';
-
-            // Add these new grids for illegal subcategories
-            const illegalGrid = originalGrid.cloneNode(true);
-            illegalGrid.id = 'illegal-grid';
-            const illegalRobberyGrid = originalGrid.cloneNode(true);
-            illegalRobberyGrid.id = 'illegal-robbery-grid';
-            const illegalStealingGrid = originalGrid.cloneNode(true);
-            illegalStealingGrid.id = 'illegal-stealing-grid';
-            const illegalArsonExplosionGrid = originalGrid.cloneNode(true);
-            illegalArsonExplosionGrid.id = 'illegal-arson-explosion-grid';
-            const illegalDrugGrid = originalGrid.cloneNode(true);
-            illegalDrugGrid.id = 'illegal-drug-grid';
-            const illegalWarSceneGrid = originalGrid.cloneNode(true);
-            illegalWarSceneGrid.id = 'illegal-war-scene-grid';
-
-            // Add new grids for extremism subcategories
-            const extremismGrid = originalGrid.cloneNode(true);
-            extremismGrid.id = 'extremism-grid';
-            const extremismSelfharmGrid = originalGrid.cloneNode(true);
-            extremismSelfharmGrid.id = 'extremism-selfharm-grid';
-            const extremismDisturbingGrid = originalGrid.cloneNode(true);
-            extremismDisturbingGrid.id = 'extremism-disturbing-grid';
-            const extremismAntisocialGrid = originalGrid.cloneNode(true);
-            extremismAntisocialGrid.id = 'extremism-antisocial-grid';
-            const extremismDepressionGrid = originalGrid.cloneNode(true);
-            extremismDepressionGrid.id = 'extremism-depression-grid';
-
-            // Function to prepare grid for a specific filter
-            function prepareGrid(grid, filter) {
-                const items = grid.querySelectorAll('.video-item');
-                const keepCount = {
-                    'all': {
-                        'benign': 1,
-                        'sexual-evident': 1,
-                        'sexual-subtle': 1,
-                        'sexual-implication': 1,
-                        'sexual-hentai': 1,
-                        'abuse-animal': 1,
-                        'abuse-campus': 1,
-                        'abuse-child': 1,
-                        'abuse-sexual': 1,
-                        'violence-fighting': 1,
-                        'illegal-robbery': 1,
-                        // 'illegal-stealing': 1,
-                        'illegal-war-scene': 1
-                    }
-                };
-                const kept = {};
-
-                items.forEach(item => {
-                    if (filter === 'all') {
-                        const subCategory = Array.from(item.classList).find(cls => 
-                            ['benign', 'sexual-evident', 'sexual-subtle', 'sexual-implication', 'sexual-hentai',
-                             'abuse-animal', 'abuse-campus', 'abuse-child', 'abuse-sexual',
-                             'illegal-robbery', 'illegal-stealing', 'illegal-war-scene'].includes(cls)
-                        );
-                        if (!kept[subCategory]) {
-                            kept[subCategory] = 0;
-                        }
-                        if (kept[subCategory] < keepCount['all'][subCategory]) {
-                            kept[subCategory]++;
-                        } else {
-                            item.remove();
-                        }
-                    } else if (filter.includes('-')) {
-                        // This is a subcategory filter
-                        if (item.classList.contains(filter)) {
-                            // Keep all items of this subcategory
-                            item.style.display = 'block';
-                        } else {
-                            item.style.display = 'none';
-                        }
-                    } else if (!item.classList.contains(filter)) {
-                        item.remove();
-                    }
-                });
-                return grid;
-            }
-
-            // Prepare each grid
-            prepareGrid(allGrid, 'all');
-            prepareGrid(benignGrid, 'benign');
-            prepareGrid(sexualGrid, 'sexual');
-            prepareGrid(sexualEvidentGrid, 'sexual-evident');
-            prepareGrid(sexualSubtleGrid, 'sexual-subtle');
-            prepareGrid(sexualImplicationGrid, 'sexual-implication');
-            prepareGrid(sexualHentaiGrid, 'sexual-hentai');
-            prepareGrid(abuseGrid, 'abuse');
-            prepareGrid(abuseAnimalGrid, 'abuse-animal');
-            prepareGrid(abuseCampusGrid, 'abuse-campus');
-            prepareGrid(abuseChildGrid, 'abuse-child');
-            prepareGrid(abuseSexualGrid, 'abuse-sexual');
-            prepareGrid(violenceGrid, 'violence');
-            prepareGrid(violenceFightingGrid, 'violence-fighting');
-            prepareGrid(violenceShootingGrid, 'violence-shooting');
-            prepareGrid(violenceAssaultGrid, 'violence-assault');
-            prepareGrid(violenceVandalismGrid, 'violence-vandalism');
-            prepareGrid(violenceSexualViolenceGrid, 'violence-sexual-violence');
-            prepareGrid(misinformationGrid, 'misinformation');
-            prepareGrid(misinformationGeneralGrid, 'misinformation-general');
-            prepareGrid(misinformationOutofdateGrid, 'misinformation-outofdate');
-            prepareGrid(misinformationStagingGrid, 'misinformation-staging');
-            prepareGrid(misinformationAigcGrid, 'misinformation-aigc');
-            prepareGrid(illegalGrid, 'illegal');
-            prepareGrid(illegalRobberyGrid, 'illegal-robbery');
-            prepareGrid(illegalStealingGrid, 'illegal-stealing');
-            prepareGrid(illegalArsonExplosionGrid, 'illegal-arson-explosion');
-            prepareGrid(illegalDrugGrid, 'illegal-drug');
-            prepareGrid(illegalWarSceneGrid, 'illegal-war-scene');
-            prepareGrid(extremismGrid, 'extremism');
-            prepareGrid(extremismSelfharmGrid, 'extremism-selfharm');
-            prepareGrid(extremismDisturbingGrid, 'extremism-disturbing');
-            prepareGrid(extremismAntisocialGrid, 'extremism-antisocial');
-            prepareGrid(extremismDepressionGrid, 'extremism-depression');
-
-            // Add prepared grids to the document
-            const gridContainer = document.createElement('div');
-            gridContainer.id = 'grid-container';
-            gridContainer.appendChild(allGrid);
-            gridContainer.appendChild(benignGrid);
-            gridContainer.appendChild(sexualGrid);
-            gridContainer.appendChild(sexualEvidentGrid);
-            gridContainer.appendChild(sexualSubtleGrid);
-            gridContainer.appendChild(sexualImplicationGrid);
-            gridContainer.appendChild(sexualHentaiGrid);
-            gridContainer.appendChild(abuseGrid);
-            gridContainer.appendChild(abuseAnimalGrid);
-            gridContainer.appendChild(abuseCampusGrid);
-            gridContainer.appendChild(abuseChildGrid);
-            gridContainer.appendChild(abuseSexualGrid);
-            gridContainer.appendChild(violenceGrid);
-            gridContainer.appendChild(violenceFightingGrid);
-            gridContainer.appendChild(violenceShootingGrid);
-            gridContainer.appendChild(violenceAssaultGrid);
-            gridContainer.appendChild(violenceVandalismGrid);
-            gridContainer.appendChild(violenceSexualViolenceGrid);
-            gridContainer.appendChild(misinformationGrid);
-            gridContainer.appendChild(misinformationGeneralGrid);
-            gridContainer.appendChild(misinformationOutofdateGrid);
-            gridContainer.appendChild(misinformationStagingGrid);
-            gridContainer.appendChild(misinformationAigcGrid);
-            gridContainer.appendChild(illegalGrid);
-            gridContainer.appendChild(illegalRobberyGrid);
-            gridContainer.appendChild(illegalStealingGrid);
-            gridContainer.appendChild(illegalArsonExplosionGrid);
-            gridContainer.appendChild(illegalDrugGrid);
-            gridContainer.appendChild(illegalWarSceneGrid);
-            gridContainer.appendChild(extremismGrid);
-            gridContainer.appendChild(extremismSelfharmGrid);
-            gridContainer.appendChild(extremismDisturbingGrid);
-            gridContainer.appendChild(extremismAntisocialGrid);
-            gridContainer.appendChild(extremismDepressionGrid);
-            originalGrid.parentNode.replaceChild(gridContainer, originalGrid);
-
-            // Initialize Masonry for each grid
-            const masonryInstances = {};
-            [allGrid, benignGrid, sexualGrid, sexualEvidentGrid, sexualSubtleGrid, sexualImplicationGrid, sexualHentaiGrid, abuseGrid, abuseAnimalGrid, abuseCampusGrid, abuseChildGrid, abuseSexualGrid, violenceGrid, violenceFightingGrid, violenceShootingGrid, violenceAssaultGrid, violenceVandalismGrid, violenceSexualViolenceGrid, misinformationGrid, misinformationGeneralGrid, misinformationOutofdateGrid, misinformationStagingGrid, misinformationAigcGrid, illegalGrid, illegalRobberyGrid, illegalStealingGrid, illegalArsonExplosionGrid, illegalDrugGrid, illegalWarSceneGrid, extremismGrid, extremismSelfharmGrid, extremismDisturbingGrid, extremismAntisocialGrid, extremismDepressionGrid].forEach(grid => {
-                masonryInstances[grid.id] = new Masonry(grid, {
-                    itemSelector: '.video-item',
-                    columnWidth: '.video-item',
-                    percentPosition: true,
-                    transitionDuration: '0.4s',
-                    gutter: 20
-                });
+            // Update the click handler for the See Demos button
+            seeDemosButton.addEventListener('click', function() {
+                if (videoSection.classList.contains('unlocked')) {
+                    // If content is already shown, hide it
+                    videoSection.classList.remove('unlocked');
+                    seeDemosButton.textContent = 'See Demos';
+                } else {
+                    // If content is hidden, show the consent modal
+                    const modal = document.getElementById('customModal');
+                    modal.style.display = 'block';
+                }
             });
 
-            // Function to show a specific grid
-            function showGrid(gridId) {
-                document.querySelectorAll('#grid-container > .video-grid').forEach(grid => {
-                    grid.style.display = grid.id === gridId ? 'block' : 'none';
+            // Handle modal buttons
+            document.querySelector('.cancel-btn').addEventListener('click', function() {
+                document.getElementById('customModal').style.display = 'none';
+            });
+
+            // Update the confirm button click handler
+            document.querySelector('.confirm-btn').addEventListener('click', function() {
+                document.getElementById('customModal').style.display = 'none';
+                document.getElementById('video-section').classList.add('unlocked');
+                seeDemosButton.textContent = 'Hide Demos'; // Change button text
+                
+                const allButton = document.querySelector('.filter-button[data-filter="all"]');
+                if (allButton) {
+                    allButton.click();
+                    setTimeout(() => {
+                        allButton.click();
+                    }, 500);
+                    setTimeout(() => {
+                        allButton.click();
+                    }, 1000);
+                }
+                
+                // Force Masonry layout refresh
+                const msnry = new Masonry('.video-grid', {
+                    itemSelector: '.video-item',
+                    columnWidth: '.grid-sizer',
+                    percentPosition: true,
+                    gutter: 20
                 });
                 
-                // Use imagesLoaded to ensure all images are loaded before layout
-                imagesLoaded(`#${gridId}`, function() {
-                    masonryInstances[gridId].layout();
+                msnry.layout();
+                setTimeout(() => {
+                    msnry.layout();
+                }, 150);
+            });
+
+            // Close modal if clicking outside
+            window.addEventListener('click', function(event) {
+                const modal = document.getElementById('customModal');
+                if (event.target === modal) {
+                    modal.style.display = 'none';
+                }
+            });
+
+            // Initialize Masonry with proper settings
+            const msnry = new Masonry('.video-grid', {
+                itemSelector: '.video-item',
+                columnWidth: '.grid-sizer',
+                percentPosition: true,
+                gutter: 20,
+                horizontalOrder: true // This helps maintain order across columns
+            });
+
+            // Update the showGrid function
+            function showGrid(filter) {
+                const items = document.querySelectorAll('.video-item');
+                items.forEach(item => {
+                    if (filter === 'all' || item.classList.contains(filter)) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
                 });
+                
+                // Force layout recalculation
+                msnry.layout();
             }
 
+            // Filter functionality
             filterButtons.forEach(button => {
                 button.addEventListener('click', function() {
                     const filter = this.getAttribute('data-filter');
@@ -1373,111 +1741,106 @@
                     filterButtons.forEach(btn => btn.classList.remove('active'));
                     this.classList.add('active');
 
-                    if (['sexual', 'abuse', 'violence', 'misinformation', 'illegal', 'extremism'].includes(filter)) {
+                    if (['sexual', 'abuse', 'violence', 'illegal', 'extremism', 'misinformation'].includes(filter)) {
                         subFilterContainer.classList.add('active');
-                        document.querySelector('.sexual-sub-filters').style.display = filter === 'sexual' ? 'flex' : 'none';
-                        document.querySelector('.abuse-sub-filters').style.display = filter === 'abuse' ? 'flex' : 'none';
-                        document.querySelector('.violence-sub-filters').style.display = filter === 'violence' ? 'flex' : 'none';
-                        document.querySelector('.misinformation-sub-filters').style.display = filter === 'misinformation' ? 'flex' : 'none';
-                        document.querySelector('.illegal-sub-filters').style.display = filter === 'illegal' ? 'flex' : 'none';
-                        document.querySelector('.extremism-sub-filters').style.display = filter === 'extremism' ? 'flex' : 'none';
                         
+                        // Hide all sub-filter buttons first
+                        document.querySelectorAll('.sub-filter-buttons').forEach(subFilters => {
+                            subFilters.style.display = 'none';
+                        });
+
+                        // Show the appropriate sub-filter buttons
+                        document.querySelector(`.${filter}-sub-filters`).style.display = 'flex';
+
                         // Reset sub-filter buttons
                         subFilterButtons.forEach(btn => btn.classList.remove('active'));
-                        
-                        // Activate the 'All' button for the selected category
                         const allButton = document.querySelector(`.sub-filter-button[data-filter="${filter}-all"]`);
                         if (allButton) {
                             allButton.classList.add('active');
                         }
                         
-                        // Show the corresponding grid
-                        showGrid(`${filter}-grid`);
+                        showGrid(filter);
                     } else {
                         subFilterContainer.classList.remove('active');
-                        document.querySelector('.sexual-sub-filters').style.display = 'none';
-                        document.querySelector('.abuse-sub-filters').style.display = 'none';
-                        document.querySelector('.violence-sub-filters').style.display = 'none';
-                        document.querySelector('.misinformation-sub-filters').style.display = 'none';
-                        document.querySelector('.illegal-sub-filters').style.display = 'none';
-                        document.querySelector('.extremism-sub-filters').style.display = 'none';
+                        document.querySelectorAll('.sub-filter-buttons').forEach(subFilters => {
+                            subFilters.style.display = 'none';
+                        });
                         subFilterButtons.forEach(btn => btn.classList.remove('active'));
-
-                        switch(filter) {
-                            case 'all':
-                                showGrid('all-grid');
-                                break;
-                            case 'benign':
-                                showGrid('benign-grid');
-                                break;
-                            case 'illegal':
-                                showGrid('illegal-grid');
-                                break;
-                            // Add cases for other main categories here
-                        }
+                        showGrid(filter);
                     }
                 });
             });
 
+            // Sub-filter functionality
             subFilterButtons.forEach(button => {
                 button.addEventListener('click', function() {
                     const subFilter = this.getAttribute('data-filter');
-                    subFilterButtons.forEach(btn => btn.classList.remove('active'));
+                    const parentCategory = this.closest('.sub-filter-buttons').classList[1].split('-')[0]; // 'sexual' or 'abuse'
+                    
+                    // Remove active class from all sub-filter buttons in this category
+                    this.closest('.sub-filter-buttons').querySelectorAll('.sub-filter-button').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
                     this.classList.add('active');
 
-                    const mainCategory = this.closest('.sub-filter-buttons').classList[1].split('-')[0];
-                    const gridToShow = document.getElementById(`${mainCategory}-grid`);
-
-                    // Reset all items in the grid
-                    gridToShow.querySelectorAll('.video-item').forEach(item => {
-                        item.style.display = 'block';
-                    });
-
                     if (subFilter.endsWith('-all')) {
-                        // Show all items for this main category
-                        showGrid(`${mainCategory}-grid`);
+                        // Show all items of the parent category
+                        showGrid(parentCategory);
                     } else {
-                        // Filter for specific subcategory
-                        prepareGrid(gridToShow, subFilter);
-                        showGrid(`${mainCategory}-grid`);
+                        // Show only items of the specific subcategory
+                        videoItems.forEach(item => {
+                            item.style.display = item.classList.contains(subFilter) ? 'block' : 'none';
+                        });
+                        msnry.layout();
                     }
-
-                    // Relayout Masonry
-                    masonryInstances[`${mainCategory}-grid`].layout();
                 });
             });
 
-            // Initial layout
-            showGrid('all-grid');
+            // Keep existing video hover functionality
+            videoItems.forEach(item => {
+                const video = item.querySelector('video');
+                
+                video.pause();
+                video.currentTime = 0;
 
-            // Ensure proper layout after a short delay
-            setTimeout(() => {
-                masonryInstances['all-grid'].layout();
-            }, 100);
-
-            // Add this new function
-            function handleVideoPlayback() {
-                const videos = document.querySelectorAll('video');
-                videos.forEach(video => {
-                    video.addEventListener('canplay', () => {
-                        video.play().catch(error => {
-                            console.log('Autoplay prevented:', error);
-                            // Create a play button or use the poster as a clickable play button
-                            const playButton = document.createElement('button');
-                            playButton.textContent = 'Play';
-                            playButton.className = 'play-button';
-                            video.parentNode.insertBefore(playButton, video.nextSibling);
-                            playButton.addEventListener('click', () => {
-                                video.play();
-                                playButton.style.display = 'none';
-                            });
-                        });
-                    });
+                item.addEventListener('mouseenter', () => {
+                    if (videoSection.classList.contains('unlocked')) {
+                        video.play().catch(error => console.log('Playback prevented:', error));
+                    }
                 });
+
+                item.addEventListener('mouseleave', () => {
+                    video.pause();
+                    video.currentTime = 0;
+                });
+            });
+
+            // Keep existing helper function
+            function isElementInViewport(el) {
+                const rect = el.getBoundingClientRect();
+                return (
+                    rect.top >= 0 &&
+                    rect.left >= 0 &&
+                    rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+                    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+                );
             }
 
-            // Call the function
-            handleVideoPlayback();
+            // Initial layout
+            showGrid('all');
+
+            // Handle window resize
+            let resizeTimer;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(() => {
+                    msnry.layout();
+                }, 250);
+            });
+
+            consentCheckbox.addEventListener('change', function() {
+                proceedButton.disabled = !this.checked;
+            });
         });
     </script>
 </body>
