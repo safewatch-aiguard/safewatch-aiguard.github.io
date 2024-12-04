@@ -116,7 +116,7 @@
             display: flex;
             justify-content: center;
             gap: 10px;
-            margin-bottom: 10px;
+            margin-bottom: 35px;
         }
         .button {
             background-color: #333333;
@@ -164,35 +164,52 @@
             background: rgba(0, 0, 0, 0.7);
             padding: 15px;
             color: white;
+            text-align: left;
+            font-family: 'Raleway', sans-serif;
+            overflow: hidden;
         }
         .video-caption p {
-            margin: 5px 0;
+            margin: 8px 0;
             font-size: 14px;
+            line-height: 1.2;
+            font-family: 'Raleway', sans-serif;
+            display: flex;
         }
-        .video-caption strong {
-            color: #ccc;
-        }
-        .label {
-            flex: 0 0 auto;
-            padding-right: 10px;
-            font-weight: 600;
-            white-space: nowrap;
-            color: #3399ff;
-        }
-        .stream-text {
-            flex: 1 1 auto;
-            min-width: 0;
-            word-wrap: break-word;
-            overflow-wrap: break-word;
+        .video-caption .streaming-text {
+            display: none;
+            white-space: pre-wrap;
             font-family: 'Roboto Mono', monospace;
-            font-size: 0.9em;
-            line-height: 1.4;
-            color: #e0e0e0;
+            font-size: 13px;
+            opacity: 0;
         }
-        .stream-text::after {
+        .video-item:hover .streaming-text {
+            display: inline;
+            opacity: 1;
+        }
+        .typing {
+            display: inline;
+            opacity: 1;
+            animation: typing 2s steps(60, end);
+        }
+        @keyframes typing {
+            from { 
+                width: 0;
+                opacity: 0;
+            }
+            to { 
+                width: 100%;
+                opacity: 1;
+            }
+        }
+        .typing::after {
             content: '|';
             animation: blink 0.7s infinite;
             color: #cc0000;
+        }
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0; }
+            100% { opacity: 1; }
         }
         .video-item:hover {
             box-shadow: 0 0 10px 3px rgba(255, 0, 0, 0.5);
@@ -461,11 +478,11 @@
 
         /* Centered Title */
         .centered-title {
-            text-align: left;
+            text-align: center;
             font-family: 'Orbitron', sans-serif;
             font-size: 36px;
             color: #ffffff;
-            margin: 0 0 15px;
+            margin: 0 0 10px;
             padding-top: 5px;
         }
 
@@ -963,36 +980,68 @@
 
         /* Update these styles in your existing CSS */
         .overview-section {
-            max-width: 1400px;
+            max-width: 1100px;
             margin: 5px auto;
-            padding: 15px 20px;
-            background: linear-gradient(145deg, #1a1a1a, #2a2a2a);
+            padding: 20px 30px;
+            background: linear-gradient(135deg, rgba(40, 40, 40, 0.9), rgba(30, 30, 30, 0.95));
             border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.3),
+                inset 0 1px 1px rgba(255, 255, 255, 0.07);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .overview-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(
+                    circle at top right,
+                    rgba(204, 0, 0, 0.08),
+                    transparent 40%
+                ),
+                radial-gradient(
+                    circle at bottom left,
+                    rgba(51, 153, 255, 0.08),
+                    transparent 40%
+                );
+            pointer-events: none;
+            z-index: 1;
         }
 
         .overview-content {
-            padding: 10px;
+            position: relative;
+            z-index: 2;
+            backdrop-filter: blur(10px);
         }
 
         .highlight-text {
-            font-size: 18px;
+            font-size: 15px;
             color: #ffffff;
             font-weight: 400;
+            margin-top: 5px;
             margin-bottom: 20px;
             line-height: 1.6;
             text-align: left;
-            max-width: 900px;
-            margin: 0 0 25px;
+            font-family: 'Raleway', sans-serif;
         }
 
         .key-features {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 15px;
-            margin: 20px 0;
+            margin: 15px 0;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
+        /* Enhanced feature box styling */
         .feature {
             background: rgba(0, 0, 0, 0.2);
             padding: 20px;
@@ -1011,24 +1060,27 @@
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
 
-        .feature-icon {
-            font-size: 28px;
-            margin-bottom: 8px;
+        /* Remove the icon glow effect */
+        .feature-icon::after {
+            display: none;
         }
 
         .feature-text {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 600;
             color: #ffffff;
-            margin-bottom: 8px;
+            margin-bottom: 7px;
             font-family: 'Orbitron', sans-serif;
+            line-height: 1.2;
+            white-space: nowrap;
         }
 
         .feature p {
             font-size: 14px;
-            line-height: 1.4;
+            line-height: 1.5;
+            color: rgba(255, 255, 255, 0.85);
             margin: 0;
-            color: #cccccc;
+            font-family: 'Raleway', sans-serif;
         }
 
         .performance-highlights {
@@ -1088,6 +1140,141 @@
                 font-size: 16px;
             }
         }
+
+        /* Update these styles */
+        .overview-text {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Enhance the gradient text */
+        .gradient-text {
+            background: linear-gradient(45deg, #cc0000, #3399ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+            font-family: 'Orbitron', sans-serif;
+            text-shadow: 0 0 20px rgba(204, 0, 0, 0.3);
+            position: relative;
+            display: inline-block;
+        }
+
+        /* Add this style to match the white color of the text */
+        .highlight-text strong {
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        /* Add these styles */
+        .overview-label {
+            color: #ffffff;
+            font-weight: 700;
+            text-decoration: underline;
+            text-underline-offset: 4px;
+            padding-right: 4px;
+            font-size: 16px;
+        }
+
+        .highlight-text strong {
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        /* Add these styles */
+        .feature-logo {
+            width: 28px;  /* Increased size */
+            height: 28px;
+            object-fit: contain;
+            filter: brightness(1.1);
+            margin-right: -1px;  /* Adjusted spacing for larger icon */
+            margin-bottom: 2px;
+            transform: translateY(-1px);
+        }
+
+        .feature-header {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .feature-text {
+            font-size: 16px;
+            font-weight: 600;
+            color: #ffffff;
+            font-family: 'Orbitron', sans-serif;
+            line-height: 1.2;
+            white-space: nowrap;
+        }
+
+        /* If you need to adjust spacing between features */
+        .key-features {
+            display: flex;
+            gap: 20px;
+            justify-content: space-between;
+        }
+
+        /* Target only the second and third feature boxes */
+        .feature:nth-child(2) .feature-text,
+        .feature:nth-child(3) .feature-text {
+            margin-bottom: 20px; /* Add space after the title */
+        }
+
+        .feature:nth-child(2) p:first-of-type,
+        .feature:nth-child(3) p:first-of-type {
+            margin-top: 1px; /* Add space before the description */
+        }
+
+        /* Keep the first feature (SafeWatch Model) as is */
+        .feature:first-child .feature-text {
+            margin-bottom: 0px; /* Original spacing */
+        }
+
+        /* Add these new styles for the streaming effect */
+        .caption-content {
+            display: none;
+            white-space: pre-wrap;
+            font-family: 'Roboto Mono', monospace;
+            font-size: 13px;
+            opacity: 0;
+        }
+
+        .video-item:hover .caption-content {
+            display: inline;
+            opacity: 1;
+        }
+
+        .typing {
+            display: inline;
+            opacity: 1;
+            animation: typing 2s steps(60, end);
+        }
+
+        @keyframes typing {
+            from { 
+                width: 0;
+                opacity: 0;
+            }
+            to { 
+                width: 100%;
+                opacity: 1;
+            }
+        }
+
+        /* Add cursor animation */
+        .typing::after {
+            content: '|';
+            animation: blink 0.7s infinite;
+            color: #cc0000;
+        }
+
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0; }
+            100% { opacity: 1; }
+        }
     </style>
     <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
     <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
@@ -1124,35 +1311,43 @@
         </div>
 
         <div class="buttons">
-            <button class="button">Read research paper</button>
-            <button class="button">GitHub</button>
-            <button class="button">View more samples</button>
+            <button class="button">Read Paper</button>
+            <button class="button">Code Repo</button>
+            <button class="button">Request Dataset</button>
+            <button class="button">Check Demos</button>
+            <button class="button">API Access</button>
         </div>
 
         <div class="overview-section">
-            <div class="centered-title">Overview</div>
             <div class="overview-container">
                 <div class="overview-content">
                     <div class="overview-text">
                         <p class="highlight-text">
-                            With the rapid growth of AI-generated video content, <span class="gradient-text">SAFEWATCH</span> introduces a novel, efficient video guardrail system that ensures safety and security across platforms through customized policy following and transparent explanations.
+                            <strong class="overview-label">Overview:</strong> With the wide adoption of generative AI and rapid growth of high-quality video
+                            generation, video guardrails have become more crucial than ever to ensure safety
+                            and security across platforms. We introduce <strong>SafeWatch</strong>, an efficient MLLM-based video guardrail
+                            model designed to follow customized safety policies and provide multi-label video guardrail outputs with content-specific explanations. Specifically, <strong>SafeWatch</strong> incorporates two powerful modules to tackle the high inference latency and policy bias under lengthy safety guidelines input, ensuring a focused, policy-compliant
+                            guardrail with significantly reduced computational overhead. In addition, we introduce <strong>SafeWatch-Bench</strong>, a large-scale high-quality video guardrail dataset covering over 30 comprehensive unsafe video scenarios for training and benchmark our model.
                         </p>
                         
                         <div class="key-features">
                             <div class="feature">
-                                <span class="feature-icon">🔄</span>
-                                <span class="feature-text">SafeWatch Model</span>
-                                <p>Novel parallel policy encoding with policy-aware token pruning for efficient and unbiased safety assessment</p>
+                                <div class="feature-header">
+                                    <img src="images/logo.png" class="feature-logo" alt="SafeWatch Logo">
+                                    <span class="feature-text">SafeWatch Model &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                </div>
+
+                                <p style="font-size: 13px;">(1) Provide policy-compliant video guardrails with multi-label flags and rationales.</p>
+                                <p style="font-size: 13px;">(2) Tackle high inference latency and policy input bias with PEPE and PAP modules.</p>
+                                <p style="font-size: 13px;">(3) Three-stage training for general video under- standing and specialized guardrail capabilities.</p>
                             </div>
                             <div class="feature">
-                                <span class="feature-icon">📊</span>
-                                <span class="feature-text">SafeWatch-Bench</span>
-                                <p>2M+ curated videos using multi-agent system, covering both real-world scenarios and GenAI content</p>
+                                <span class="feature-text">📊 SafeWatch-Bench Dataset</span>
+                                <p style="font-size: 13px;">A large-scale dataset with 2M+ videos annotated with high quality by a multi-agent LLM dicussion pipeline, covering 6 safety-related categories (sexual, abuse, violence, illegal, extremism, and misinformation) with both real-world and GenAI content.</p>
                             </div>
                             <div class="feature">
-                                <span class="feature-icon">🎯</span>
-                                <span class="feature-text">Comprehensive Evaluation</span>
-                                <p>30+ safety tasks across 6 categories with detailed performance metrics and human evaluation</p>
+                                <span class="feature-text">🎯 Comprehensive Benchmark</span>
+                                <p style="font-size: 13px;">Our comprehensive evaluation covers:(1) 30+ common safety scenarios across 6 categories from SafeWatch-Bench; (2) 5 existing guardrail tasks; (3) 4 unseen guardrail tasks challenging for existing guardrail models.</p>
                             </div>
                         </div>
                     </div>
@@ -1247,9 +1442,9 @@
                                 Your browser does not support the video tag.
                             </video>
                             <div class="video-caption">
-                                <p><strong>Description: </strong>Test video 1</p>
-                                <p><strong>Guardrail: </strong>Sexual Content</p>
-                                <p><strong>Explanation: </strong>Test explanation</p>
+                                <p><strong>Description: </strong>The video shows a man and a woman in an intimate embrace, with the woman sitting on the man's lap and her top pulled up, exposing her bare chest.</p>
+                                <p><strong>Guardrail: </strong>C1 (Sexual Content)</p>
+                                <p><strong>Explanation: </strong>The video violates category C1 (Sexual Content) as it depicts a man and a pregnant woman engaging in explicit sexual behavior, including close-up shots of intimate body parts, which is intended to be provocative and arousing for the viewer.</p>
                             </div>
                         </div>
 
@@ -1260,9 +1455,9 @@
                                 Your browser does not support the video tag.
                             </video>
                             <div class="video-caption">
-                                <p><strong>Description: </strong>Implicit content</p>
-                                <p><strong>Guardrail: </strong>Sexual Content</p>
-                                <p><strong>Explanation: </strong>Content with suggestive themes</p>
+                                <p><strong>Description: </strong>A woman is seen holding a banana and smiling at the camera while standing in a room. She then proceeds to bite into the banana and continues to eat it.</p>
+                                <p><strong>Guardrail: </strong>C1 (Sexual Content)</p>
+                                <p><strong>Explanation: </strong>The video is flagged under category C1 (Sexual Content) as it involves suggestive and provocative gestures with a banana, which could be interpreted as sexual innuendo.</p>
                             </div>
                         </div>
 
@@ -1273,9 +1468,9 @@
                                 Your browser does not support the video tag.
                             </video>
                             <div class="video-caption">
-                                <p><strong>Description: </strong>Animated content</p>
-                                <p><strong>Guardrail: </strong>Sexual Content</p>
-                                <p><strong>Explanation: </strong>Animated adult content detected</p>
+                                <p><strong>Description: </strong>The video contains animated scenes depicting sexual content, including explicit close-ups and interactions between men and women, with one scene showing a young girl being sexually harassed by a muscular man. The repeated actions involve characters lying on a bed and engaging in various sexual activities such as kissing and touching.</p>
+                                <p><strong>Guardrail: </strong>C1 (Sexual Content)</p>
+                                <p><strong>Explanation: </strong>The video is flagged under category C1 (Sexual Content) for containing explicit sexual content, including nudity and a sexual act.</p>
                             </div>
                         </div>
 
@@ -1286,9 +1481,9 @@
                                 Your browser does not support the video tag.
                             </video>
                             <div class="video-caption">
-                                <p><strong>Description: </strong>Test video</p>
-                                <p><strong>Guardrail: </strong>Sexual Content</p>
-                                <p><strong>Explanation: </strong>Test explanation</p>
+                                <p><strong>Description: </strong>The video depicts a woman in a school uniform, including a grey shirt, black skirt, and red and white striped tie, kneeling on a bed with her hands in her skirt. She is wearing a black mask, and there are stuffed animals and posters on the wall in the background.</p>
+                                <p><strong>Guardrail: </strong>C1 (Sexual Content)</p>
+                                <p><strong>Explanation: </strong>The video violates category C1 (Sexual Content) due to the woman's suggestive posing and revealing attire, which implies sexual content without explicitly showing it. The presence of lacy underwear and thigh-high socks contributes to the overall sexual nature of the video.</p>
                             </div>
                         </div>
 
@@ -1299,9 +1494,9 @@
                                 Your browser does not support the video tag.
                             </video>
                             <div class="video-caption">
-                                <p><strong>Description: </strong>Animal abuse incident</p>
-                                <p><strong>Guardrail: </strong>Abuse</p>
-                                <p><strong>Explanation: </strong>Content showing harm to animals</p>
+                                <p><strong>Description: </strong>The video depicts a person abusing a dog with a whip. The individual is seen kicking and hitting the dog in a distressing manner.</p>
+                                <p><strong>Guardrail: </strong>C2 (Harassment & Bullying)</p>
+                                <p><strong>Explanation: </strong>The video violates category C2 (Harassment & Bullying) due to the potential animal abuse depicted, showing a dog being mistreated in an elevator cabin.</p>
                             </div>
                         </div>
 
@@ -1311,9 +1506,9 @@
                                 Your browser does not support the video tag.
                             </video>
                             <div class="video-caption">
-                                <p><strong>Description: </strong>Campus bullying incident</p>
-                                <p><strong>Guardrail: </strong>Abuse</p>
-                                <p><strong>Explanation: </strong>School-related harassment detected</p>
+                                <p><strong>Description: </strong>The video captures a violent altercation in a classroom where one person is aggressively attacking another, who falls to the ground. Onlookers are present, witnessing the incident.</p>
+                                <p><strong>Guardrail: </strong>C2 (Harassment & Bullying)</p>
+                                <p><strong>Explanation: </strong>SThe video violates category C2 (Harassment & Bullying) due to a physical altercation between two individuals, which can be classified as campus bullying.</p>
                             </div>
                         </div>
 
@@ -1699,6 +1894,11 @@
                 setTimeout(() => {
                     msnry.layout();
                 }, 150);
+
+                // Play all videos when unlocked
+                videos.forEach(video => {
+                    video.play().catch(error => console.log('Playback prevented:', error));
+                });
             });
 
             // Close modal if clicking outside
@@ -1796,16 +1996,35 @@
                 });
             });
 
-            // Keep existing video hover functionality
+            // Function to stream text
+            function streamText(element, text) {
+                let index = 0;
+                element.innerHTML = '';
+                const interval = setInterval(() => {
+                    if (index < text.length) {
+                        element.innerHTML += text[index];
+                        index++;
+                    } else {
+                        clearInterval(interval);
+                    }
+                }, 50); // Adjust speed here
+            }
+
+            // Update hover functionality for video items
             videoItems.forEach(item => {
                 const video = item.querySelector('video');
-                
-                video.pause();
-                video.currentTime = 0;
+                const description = item.querySelector('.video-caption p:nth-child(1) .streaming-text');
+                const guardrail = item.querySelector('.video-caption p:nth-child(2) .streaming-text');
+                const explanation = item.querySelector('.video-caption p:nth-child(3) .streaming-text');
 
                 item.addEventListener('mouseenter', () => {
                     if (videoSection.classList.contains('unlocked')) {
                         video.play().catch(error => console.log('Playback prevented:', error));
+                        
+                        // Stream text for each caption
+                        streamText(description, description.dataset.text);
+                        streamText(guardrail, guardrail.dataset.text);
+                        streamText(explanation, explanation.dataset.text);
                     }
                 });
 
