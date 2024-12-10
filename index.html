@@ -1374,6 +1374,51 @@
         #demoModal .confirm-btn:hover {
             background: linear-gradient(145deg, #FFA500, #FF8C00);
         }
+
+        .visitor-stats-title {
+            text-align: center;
+            margin-bottom: 20px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 19px;
+            color: #ffffff;
+        }
+
+        .visitor-stats-title::before,
+        .visitor-stats-title::after {
+            content: '';
+            position: absolute;
+            height: 2px;
+            width: 20%;
+            top: 50%;
+            background: linear-gradient(to right, transparent, rgba(204, 0, 0, 0.5), transparent);
+        }
+
+        .visitor-stats-title::before {
+            left: 5%;
+        }
+
+        .visitor-stats-title::after {
+            right: 5%;
+        }
+
+        .method-section:last-child {
+            margin-bottom: 60px;
+        }
+        
+        .method-section:last-child .overview-section {
+            background: linear-gradient(135deg, rgba(40, 40, 40, 0.9), rgba(30, 30, 30, 0.95));
+            border-radius: 20px;
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.3),
+                inset 0 1px 1px rgba(255, 255, 255, 0.07);
+        }
+        
+        .method-section:last-child .highlight-text {
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+            color: rgba(255, 255, 255, 0.9);
+        }
     </style>
     <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
     <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
@@ -2275,9 +2320,22 @@
             </div>
         </div>
     </div> -->
+    <div class="visitor-stats-container">
+        <div class="visitor-stats-title">Global Visitors Statistics on Our Project</div>
+        <script type='text/javascript' id='clustrmaps' src='//cdn.clustrmaps.com/map_v2.js?cl=ffffff&w=350&t=tt&d=p6k1f4UwHW-LOZNWxVQi5XI2s03Q4BzAFfbVsau9n8s&co=1e272d'></script>
+    </div>
 
-    <script type='text/javascript' id='clustrmaps' src='//cdn.clustrmaps.com/map_v2.js?cl=ffffff&w=350&t=tt&d=p6k1f4UwHW-LOZNWxVQi5XI2s03Q4BzAFfbVsau9n8s&co=1e272d'></script>
-
+    <!-- Replace the existing acknowledgment section with this -->
+    <div class="method-section">
+        <div class="centered-title">Acknowledgment</div>
+        <div class="overview-section" style="margin-bottom: 40px;">
+            <div class="overview-content">
+                <p class="highlight-text" style="text-align: center;">
+                    Please do not copy, distribute, or use any content from this website without explicit permission. All rights reserved. If you find any video content displayed on this page that you would like to be removed, please contact us immediately and we will address your concerns promptly.
+                </p>
+            </div>
+        </div>
+    </div>
 
     <script>
         function toggleStats() {
