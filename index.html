@@ -2187,11 +2187,6 @@
     </div>
 
         <!-- Add visitor statistics with container and styling -->
-    <!-- <div class="visitor-stats" style="width: 100%; text-align: center; margin: 40px 0; padding: 20px;">
-        <script type='text/javascript' id='clustrmaps' src='//cdn.clustrmaps.com/map_v2.js?cl=ffffff&w=302&t=tt&d=p6k1f4UwHW-LOZNWxVQi5XI2s03Q4BzAFfbVsau9n8s&co=2d79ad'></script>
-    </div> -->
-
-    <!-- Add this before the closing </body> tag -->
     <div class="visitor-stats-container">
         <button class="stats-toggle-btn" onclick="toggleStats()">
             <span class="stats-icon">📊</span>
@@ -2199,90 +2194,30 @@
             <span class="chevron">▼</span>
         </button>
         <div class="stats-content">
-            <div id="clustrmaps-widget" style="padding: 20px; background: #2a2a2a; border-radius: 8px;"></div>
+            <div id="clustrmaps-widget" style="padding: 20px; background: #2a2a2a; border-radius: 8px;">
+                <a href='https://clustrmaps.com/site/1c2xs' title='Visit tracker'>
+                    <img 
+                        src='https://clustrmaps.com/map_v2.png?cl=ffffff&w=a&t=n&d=p6k1f4UwHW-LOZNWxVQi5XI2s03Q4BzAFfbVsau9n8s'
+                        alt="Visitor Map"
+                        onerror="this.onerror=null; this.src='https://clustrmaps.com/map_v2.png?cl=ffffff&w=a&t=n&d=p6k1f4UwHW-LOZNWxVQi5XI2s03Q4BzAFfbVsau9n8s'"
+                        style="max-width: 100%; height: auto;"
+                    />
+                </a>
+            </div>
         </div>
     </div>
-
-    <style>
-        .visitor-stats-container {
-            width: 100%;
-            max-width: 1100px;
-            margin: 20px auto 40px;
-            text-align: center;
-        }
-
-        .stats-toggle-btn {
-            background: linear-gradient(145deg, #2a2a2a, #1a1a1a);
-            border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
-            color: #ffffff;
-            font-family: 'Raleway', sans-serif;
-            font-size: 16px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin: 0 auto;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-        }
-
-        .stats-toggle-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-            background: linear-gradient(145deg, #3a3a3a, #2a2a2a);
-        }
-
-        .stats-icon {
-            font-size: 20px;
-        }
-
-        .chevron {
-            transition: transform 0.3s ease;
-        }
-
-        .stats-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease-out;
-            background: rgba(0, 0, 0, 0.2);
-            border-radius: 0 0 10px 10px;
-            margin-top: 0;
-        }
-
-        .stats-content.expanded {
-            max-height: 400px;
-            margin-top: 20px;
-            padding: 20px;
-        }
-
-        .stats-toggle-btn.expanded .chevron {
-            transform: rotate(180deg);
-        }
-    </style>
 
     <script>
         function toggleStats() {
             const content = document.querySelector('.stats-content');
             const button = document.querySelector('.stats-toggle-btn');
-            const widget = document.getElementById('clustrmaps-widget');
-            const isExpanded = content.classList.contains('expanded');
+            const img = content.querySelector('img');
             
-            // Only add the map if it doesn't exist yet
-            if (!isExpanded && widget.children.length === 0) {
-                // Create the link and image elements
-                const link = document.createElement('a');
-                link.href = 'https://clustrmaps.com/site/1c2xs';
-                link.title = 'Visit tracker';
-                
-                const img = document.createElement('img');
-                img.src = '//clustrmaps.com/map_v2.png?cl=ffffff&w=a&t=n&d=p6k1f4UwHW-LOZNWxVQi5XI2s03Q4BzAFfbVsau9n8s';
-                
-                link.appendChild(img);
-                widget.appendChild(link);
+            // Force image reload when expanding
+            if (!content.classList.contains('expanded')) {
+                img.src = img.src.replace(/\?.*$/, '?' + new Date().getTime());
             }
-
+            
             content.classList.toggle('expanded');
             button.classList.toggle('expanded');
         }
