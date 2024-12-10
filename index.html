@@ -1344,6 +1344,7 @@
         .stats-content.expanded {
             max-height: 400px;
             margin-top: 20px;
+            padding: 20px;
         }
 
         .stats-toggle-btn.expanded .chevron {
@@ -2198,7 +2199,7 @@
             <span class="chevron">▼</span>
         </button>
         <div class="stats-content">
-            <div id="clustrmaps-widget"></div>
+            <div id="clustrmaps-widget" style="padding: 20px; background: #2a2a2a; border-radius: 8px;"></div>
         </div>
     </div>
 
@@ -2253,6 +2254,7 @@
         .stats-content.expanded {
             max-height: 400px;
             margin-top: 20px;
+            padding: 20px;
         }
 
         .stats-toggle-btn.expanded .chevron {
@@ -2261,7 +2263,6 @@
     </style>
 
     <script>
-        // Add this to your existing scripts
         function toggleStats() {
             const content = document.querySelector('.stats-content');
             const button = document.querySelector('.stats-toggle-btn');
