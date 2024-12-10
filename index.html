@@ -2268,13 +2268,17 @@
             const button = document.querySelector('.stats-toggle-btn');
             const isExpanded = content.classList.contains('expanded');
             
-            if (!isExpanded && !document.getElementById('clustrmaps-script')) {
-                const script = document.createElement('script');
-                script.id = 'clustrmaps-script';
-                script.type = 'text/javascript';
-                // Using the counter widget
-                script.src = '//clustrmaps.com/counter/map.js?d=p6k1f4UwHW-LOZNWxVQi5XI2s03Q4BzAFfbVsau9n8s';
-                document.getElementById('clustrmaps-widget').appendChild(script);
+            if (!isExpanded && !document.getElementById('clustrmaps-widget').children.length === 0) {
+                // Create the link and image elements
+                const link = document.createElement('a');
+                link.href = 'https://clustrmaps.com/site/1c2xs';
+                link.title = 'Visit tracker';
+                
+                const img = document.createElement('img');
+                img.src = '//clustrmaps.com/map_v2.png?cl=ffffff&w=a&t=n&d=p6k1f4UwHW-LOZNWxVQi5XI2s03Q4BzAFfbVsau9n8s';
+                
+                link.appendChild(img);
+                document.getElementById('clustrmaps-widget').appendChild(link);
             }
 
             content.classList.toggle('expanded');
