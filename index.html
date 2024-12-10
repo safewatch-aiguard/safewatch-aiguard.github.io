@@ -1419,6 +1419,21 @@
             line-height: 1.6;
             color: rgba(255, 255, 255, 0.9);
         }
+
+        /* Add specific style for acknowledgment section */
+        .method-section .overview-section {
+            background: #1a1a1a !important;  /* Override any existing background styles */
+        }
+
+        /* Remove gradient overlay for acknowledgment */
+        .method-section .overview-section::before {
+            display: none;  /* Remove the gradient overlay */
+        }
+
+        /* Ensure content is visible */
+        .method-section .overview-content {
+            backdrop-filter: none;  /* Remove any backdrop filter */
+        }
     </style>
     <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
     <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
@@ -2325,13 +2340,13 @@
         <script type='text/javascript' id='clustrmaps' src='//cdn.clustrmaps.com/map_v2.js?cl=ffffff&w=350&t=tt&d=p6k1f4UwHW-LOZNWxVQi5XI2s03Q4BzAFfbVsau9n8s&co=1e272d'></script>
     </div>
 
-    <!-- Replace the existing acknowledgment section with this -->
+    <!-- Update the acknowledgment section's style -->
     <div class="method-section">
-        <div class="centered-title">Acknowledgment</div>
-        <div class="overview-section" style="margin-bottom: 40px;">
+        <div class="centered-title" style="font-size: 20px;">Acknowledgment</div>
+        <div class="overview-section" style="margin-bottom: 60px; background: #1a1a1a; padding: 20px;">  <!-- Adjusted padding and margin -->
             <div class="overview-content">
-                <p class="highlight-text" style="text-align: center;">
-                    Please do not copy, distribute, or use any content from this website without explicit permission. All rights reserved. If you find any video content displayed on this page that you would like to be removed, please contact us immediately and we will address your concerns promptly.
+                <p class="highlight-text" style="text-align: left; font-size: 14px; margin: 0;">  <!-- Removed margin from text -->
+                    Please do not copy, distribute, or use any content from this website without explicit permission. All rights reserved. All the videos displayed on this page are for research purposes. All the human identities have been blurred to protect the privacy of the individuals involved. If you find any video content displayed on this page that you would like to be removed, please contact us immediately and we will address your concerns promptly.
                 </p>
             </div>
         </div>
