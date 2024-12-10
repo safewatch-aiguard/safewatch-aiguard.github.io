@@ -1199,8 +1199,8 @@
             object-fit: contain;
             filter: brightness(1.1);
             margin-right: -1px;  /* Adjusted spacing for larger icon */
-            margin-bottom: 2px;
-            transform: translateY(-1px);
+            margin-bottom: -6px;
+            transform: translateY(-6px);
         }
 
         .feature-header {
@@ -1234,12 +1234,12 @@
 
         .feature:nth-child(2) p:first-of-type,
         .feature:nth-child(3) p:first-of-type {
-            margin-top: 1px; /* Add space before the description */
+            margin-top: -4px; /* Add space before the description */
         }
 
         /* Keep the first feature (SafeWatch Model) as is */
         .feature:first-child .feature-text {
-            margin-bottom: 0px; /* Original spacing */
+            margin-bottom: 5px; /* Original spacing */
         }
 
         /* Add these new styles for the streaming effect */
@@ -1350,6 +1350,30 @@
         .stats-toggle-btn.expanded .chevron {
             transform: rotate(180deg);
         }
+
+        .feature-text {
+            transition: color 0.3s ease;
+        }
+        
+        .feature-text:hover {
+            color: #cc0000;
+        }
+
+        /* Add these specific styles for the dataset and demo modals */
+        #datasetModal .modal-header,
+        #demoModal .modal-header {
+            background: linear-gradient(145deg, #FFD700, #FFA500);
+        }
+
+        #datasetModal .confirm-btn,
+        #demoModal .confirm-btn {
+            background: linear-gradient(145deg, #FFD700, #FFA500);
+        }
+
+        #datasetModal .confirm-btn:hover,
+        #demoModal .confirm-btn:hover {
+            background: linear-gradient(145deg, #FFA500, #FF8C00);
+        }
     </style>
     <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
     <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
@@ -1364,8 +1388,8 @@
             <div class="nav-links">
                 <a href="#download">Paper</a>
                 <a href="#presentation">Code</a>
-                <a href="#demo">Dataset</a>
-                <a href="#performance">Demos</a>
+                <a href="#demo" onclick="showDatasetAlert()">Dataset</a>
+                <a href="#video-demos" onclick="scrollToSeeDemos(event)">Demos</a>
             </div>
         </nav>
     </header>
@@ -1388,9 +1412,9 @@
         <div class="buttons">
             <button class="button" onclick="window.open('https://openreview.net/pdf?id=xjKz6IxgCX', '_blank')">Read Paper</button>
             <button class="button" onclick="window.open('https://github.com/BillChan226/SafeWatch/', '_blank')">Code Repo</button>
-            <button class="button" onclick="window.open('https://forms.gle/5555555555555555', '_blank')">Request Dataset</button>
-            <button class="button" onclick="window.open('https://forms.gle/5555555555555555', '_blank')">Check Demos</button>
-            <button class="button" onclick="window.open('https://forms.gle/5555555555555555', '_blank')">API Access</button>
+            <button class="button" onclick="showDatasetAlert()">Request Dataset</button>
+            <button class="button" onclick="scrollToSeeDemos(event)">Check Demos</button>
+            <button class="button" onclick="showDemoAlert()">Online Demo</button>
         </div>
 
         <div class="overview-section">
@@ -1409,23 +1433,23 @@
                             <div class="feature">
                                 <div class="feature-header">
                                     <img src="images/logo.png" class="feature-logo" alt="SafeWatch Logo">
-                                    <span class="feature-text">SafeWatch Model &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                    <span class="feature-text" style="cursor: pointer;" onclick="scrollToSection('model-architecture')">SafeWatch Video Guardrail</span>
                                 </div>
 
                                 <p style="font-size: 13px;">(1) <strong>Strong policy-following</strong> to provide multi-label guardrail flags with precise explanations.</p>
-                                <p style="font-size: 13px;">(2) <strong>Novel Architecture</strong> for achieving low inf- erence latency and mitigating policy input bias.</p>
+                                <p style="font-size: 13px;">(2) <strong>Novel Architecture</strong> for achieving low infer- ence latency and mitigating policy input bias.</p>
                                 <p style="font-size: 13px;">(3) <strong>Advanced Training</strong> for accurate guardrail and grounded explanation for both real-world and generative videos.</p>
                             </div>
                             <div class="feature">
-                                <span class="feature-text">📊 SafeWatch-Bench Dataset &nbsp;&nbsp;&nbsp;</span>
+                                <span class="feature-text" style="cursor: pointer;" onclick="scrollToSection('dataset-section')">📊 SafeWatch-Bench Dataset&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                                 <p style="font-size: 13px;">(1) <strong>Large & High-quality:</strong> Contain 2M+ videos annotated in high quality by multi-agent LLMs;</p>
-                                <p style="font-size: 13px;">(2) <strong>Comprehensive Coverage:</strong> Cover 6 policy ca tegories and over 30 safety-related scenarios;</p>
+                                <p style="font-size: 13px;">(2) <strong>Comprehensive Coverage:</strong> Cover 6 policy categories and over 30 safety-related scenarios;</p>
                                 <p style="font-size: 13px;">(3) <strong>Real-world and GenAI:</strong> Cover challenging videos produced in both real-world settings and various generative models.</p>
                             </div>
                             <div class="feature">
-                                <span class="feature-text">🎯 Comprehensive Evaluation &nbsp;&nbsp;&nbsp;</span>
-                                <p style="font-size: 13px;">(1) <strong>SafeWatch-Bench:</strong> On both real-world and generative video subset, SafeWatch outperfo- rms SOTAs by 29.2% and 27.2% on average; </p>
-                                <p style="font-size: 13px;">(2) <strong>Existing Guardrail Tasks:</strong> On 5 existing ben- chmarks, SafeWatch achieves 87.1% accuracy; </p>
+                                <span class="feature-text" style="cursor: pointer;" onclick="scrollToSection('main-results')">🎯 Comprehensive Evaluation&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                <p style="font-size: 13px;">(1) <strong>SafeWatch-Bench:</strong> On both real-world and generative video subset, SafeWatch outperforms SOTAs by 29.2% and 27.2% on average;</p>
+                                <p style="font-size: 13px;">(2) <strong>Existing Guardrail Tasks:</strong> On 5 existing benchmarks, SafeWatch achieves 87.1% accuracy;</p>
                                 <p style="font-size: 13px;">(3) <strong>Unseen Tasks:</strong> On 8 new video categories or prompting tasks, SafeWatch has high accuracy.</p>
                             </div>
                         </div>
@@ -1435,7 +1459,7 @@
         </div>
 
         <!-- See Demos Button moved above -->
-        <div class="see-demos-container">
+        <div class="see-demos-container" id="video-demos">
             <button class="see-demos-button" id="seeDemosButton">Check out the demos🔥</button>
         </div>
 
@@ -1828,7 +1852,7 @@
         </div>
 
         <!-- Dataset Section (part of video module, always visible) -->
-        <div class="dataset-info">
+        <div class="dataset-info" id="dataset-section">
             <div class="centered-title">SafeWatch-Bench Dataset</div>
             <div class="image-container">
                 <img src="figures/dataset.png" alt="SafeWatch-Bench Dataset">
@@ -1854,7 +1878,7 @@
     </div>
 
     <!-- Method Section (separate section) -->
-    <div class="method-section">
+    <div class="method-section" id="model-architecture">
         <div class="centered-title">SafeWatch Model Architecture</div>
         <div class="image-container">
             <img src="figures/model.png" alt="SafeWatch Method Overview">
@@ -1893,6 +1917,35 @@
             <div class="modal-footer">
                 <button class="modal-button cancel-btn">Cancel</button>
                 <button class="modal-button confirm-btn" id="proceedButton" disabled>Proceed</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add these modal dialogs -->
+    <div id="datasetModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>📢 Dataset Notice</h2>
+            </div>
+            <div class="modal-body">
+                <p>The dataset will be released under certain conditions and legal regulations. Stay tuned!</p>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-button confirm-btn" onclick="closeModal('datasetModal')">Got it!</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="demoModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>📢 Demo Notice</h2>
+            </div>
+            <div class="modal-body">
+                <p>We will host SafeWatch model online for you to try on HuggingFace Space soon! <br> Feel free to play with some demos on this page first! Stay tuned!</p>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-button confirm-btn" onclick="closeModal('demoModal')">Got it!</button>
             </div>
         </div>
     </div>
@@ -2118,11 +2171,30 @@
                 proceedButton.disabled = !this.checked;
             });
         });
+
+        function showDatasetAlert() {
+            document.getElementById('datasetModal').style.display = 'block';
+        }
+
+        function showDemoAlert() {
+            document.getElementById('demoModal').style.display = 'block';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        // Close modal if clicking outside
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = 'none';
+            }
+        }
     </script>
 
 
     <!-- Main Results Section -->
-    <div class="method-section"> <!-- Reusing method-section styling for consistency -->
+    <div class="method-section" id="main-results">
         <div class="centered-title">Main Results</div>
         
         
@@ -2195,14 +2267,11 @@
         </button>
         <div class="stats-content">
             <div id="clustrmaps-widget" style="padding: 20px; background: #2a2a2a; border-radius: 8px;">
-                <a href='https://clustrmaps.com/site/1c2xs' title='Visit tracker'>
-                    <img 
-                        src='https://clustrmaps.com/map_v2.png?cl=ffffff&w=a&t=n&d=p6k1f4UwHW-LOZNWxVQi5XI2s03Q4BzAFfbVsau9n8s'
-                        alt="Visitor Map"
-                        onerror="this.onerror=null; this.src='https://clustrmaps.com/map_v2.png?cl=ffffff&w=a&t=n&d=p6k1f4UwHW-LOZNWxVQi5XI2s03Q4BzAFfbVsau9n8s'"
-                        style="max-width: 100%; height: auto;"
-                    />
-                </a>
+                <img 
+                    src='https://clustrmaps.com/map_v2.png?cl=ffffff&w=a&t=n&d=p6k1f4UwHW-LOZNWxVQi5XI2s03Q4BzAFfbVsau9n8s'
+                    alt="Visitor Map"
+                    style="max-width: 100%; height: auto;"
+                />
             </div>
         </div>
     </div>
@@ -2211,16 +2280,58 @@
         function toggleStats() {
             const content = document.querySelector('.stats-content');
             const button = document.querySelector('.stats-toggle-btn');
-            const img = content.querySelector('img');
-            
-            // Force image reload when expanding
-            if (!content.classList.contains('expanded')) {
-                img.src = img.src.replace(/\?.*$/, '?' + new Date().getTime());
-            }
-            
             content.classList.toggle('expanded');
             button.classList.toggle('expanded');
         }
+    </script>
+
+    <script>
+        function scrollToSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            if (section) {
+                // Add smooth scrolling with offset for header
+                const headerOffset = 80; // Adjust this value based on your header height
+                const elementPosition = section.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: "smooth"
+                });
+            }
+        }
+    </script>
+
+    <script>
+        function scrollToSeeDemos(event) {
+            event.preventDefault();
+            const demoSection = document.getElementById('video-demos');
+            if (demoSection) {
+                const headerOffset = 80;
+                const elementPosition = demoSection.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: "smooth"
+                });
+            }
+        }
+    </script>
+
+    <!-- Update just the script part that controls the button animation -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const demoButton = document.getElementById('seeDemosButton');
+            
+            // Add animation class on page load
+            demoButton.style.animation = 'buttonPulse 2s 1.5';
+            
+            // Remove animation after 3 seconds
+            setTimeout(() => {
+                demoButton.style.animation = 'none';
+            }, 3000);
+        });
     </script>
 </body>
 </html>
