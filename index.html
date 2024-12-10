@@ -2269,11 +2269,11 @@
             const isExpanded = content.classList.contains('expanded');
             
             if (!isExpanded && !document.getElementById('clustrmaps-script')) {
-                // Load the clustrmaps script only when expanding for the first time
                 const script = document.createElement('script');
                 script.id = 'clustrmaps-script';
                 script.type = 'text/javascript';
-                script.src = '//cdn.clustrmaps.com/map_v2.js?cl=ffffff&w=a&t=n&d=p6k1f4UwHW-LOZNWxVQi5XI2s03Q4BzAFfbVsau9n8s';
+                // Using the counter widget
+                script.src = '//clustrmaps.com/counter/map.js?d=p6k1f4UwHW-LOZNWxVQi5XI2s03Q4BzAFfbVsau9n8s';
                 document.getElementById('clustrmaps-widget').appendChild(script);
             }
 
