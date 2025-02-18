@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SafeWatch: Efficient Safety-Policy Following Video Guardrail Model</title>
+    <link rel="icon" type="image/x-icon" href="figures/favicon.ico">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@700&display=swap');
         @import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600&display=swap');
@@ -1391,6 +1392,7 @@
             width: 20%;
             top: 50%;
             background: linear-gradient(to right, transparent, rgba(204, 0, 0, 0.5), transparent);
+            display: none;  /* Add this line to hide the elements */
         }
 
         .visitor-stats-title::before {
@@ -1434,6 +1436,33 @@
         .method-section .overview-content {
             backdrop-filter: none;  /* Remove any backdrop filter */
         }
+
+        .conference {
+            text-align: center;
+            margin: 20px 0 28px 0;  /* Increased top and bottom margins */
+            font-family: 'Google Sans', sans-serif;
+            font-size: 1.25em;      /* Increased from 1.1em */
+            letter-spacing: 1.2px;   /* Slightly increased letter spacing */
+        }
+
+        .conference span {
+            background: linear-gradient(120deg, #2b5876, #4e4376);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 500;
+            padding: 6px 16px;       /* Slightly increased padding */
+            position: relative;
+        }
+
+        .conference span::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(78, 67, 118, 0.4), transparent);
+        }
     </style>
     <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
     <script src="https://unpkg.com/imagesloaded@5/imagesloaded.pkgd.min.js"></script>
@@ -1448,7 +1477,8 @@
             <div class="nav-links">
                 <a href="https://arxiv.org/pdf/2412.06878">Paper</a>
                 <a href="#presentation">Code</a>
-                <a href="#demo" onclick="showDatasetAlert()">Dataset</a>
+                <!-- <a href="#demo" onclick="showDatasetAlert()">Dataset</a> -->
+                <a href="https://huggingface.co/datasets/Zhaorun/SafeWatch-Bench">Dataset</a>
                 <a href="#video-demos" onclick="scrollToSeeDemos(event)">Demos</a>
                 <a href="https://www.alphaxiv.org/abs/2412.06878">Alphaxiv Community</a>
             </div>
@@ -1468,6 +1498,10 @@
 
         <div class="affiliations">
             <p><sup>1</sup>University of Chicago, <sup>2</sup>Virtue AI, <sup>3</sup>University of Illinois, Urbana-Champaign</p>
+        </div>
+
+        <div class="conference">
+            <span>ICLR 2025</span>
         </div>
 
         <div class="buttons">
@@ -2307,17 +2341,14 @@
     </div>
 
     <!-- Add BibTeX section -->
-    <div class="bibtex-section" style="width: 100%; max-width: 1100px; margin: 40px auto; padding: 20px; background: rgba(0, 0, 0, 0.2); border-radius: 10px;">
+    <div class="bibtex-section" style="width: 100%; max-width: 1100px; margin: 40px auto; padding: 2px; background: rgba(0, 0, 0, 0.2); border-radius: 10px;">
         <h2 style="font-family: 'Orbitron', sans-serif; color: #ffffff; margin-bottom: 20px; text-align: center;">BibTeX</h2>
-        <pre style="background: #2a2a2a; padding: 20px; border-radius: 8px; overflow-x: auto; color: #ffffff; font-family: 'Roboto Mono', monospace; font-size: 14px; line-height: 1.5;"><code>@misc{chen2024safewatchefficientsafetypolicyfollowing,
-            title={SafeWatch: An Efficient Safety-Policy Following Video Guardrail Model with Transparent Explanations}, 
-            author={Zhaorun Chen and Francesco Pinto and Minzhou Pan and Bo Li},
-            year={2024},
-            eprint={2412.06878},
-            archivePrefix={arXiv},
-            primaryClass={cs.CV},
-            url={https://arxiv.org/abs/2412.06878}, 
-        }</code></pre>
+        <pre style="background: #2a2a2a; padding: 20px; border-radius: 8px; overflow-x: auto; color: #ffffff; font-family: 'Roboto Mono', monospace; font-size: 14px; line-height: 1.5;"><code>@article{chen2024safewatch,
+            title={Safewatch: An efficient safety-policy following video guardrail model with transparent explanations},
+            author={Chen, Zhaorun and Pinto, Francesco and Pan, Minzhou and Li, Bo},
+            journal={arXiv preprint arXiv:2412.06878},
+            year={2024}
+          }</code></pre>
     </div>
 
         <!-- Add visitor statistics with container and styling -->
